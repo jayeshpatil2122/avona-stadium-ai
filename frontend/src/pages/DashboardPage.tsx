@@ -1,8 +1,10 @@
 import heroAsset from "../assets/hero.png";
 import ModuleCard from "../components/dashboard/ModuleCard";
 import SystemMetric from "../components/dashboard/SystemMetric";
+import type { StadiumRole } from "../types/role";
 
 interface DashboardPageProps {
+  role: StadiumRole;
   onOpenNavigation: () => void;
 }
 
@@ -39,7 +41,7 @@ const modules = [
   },
 ];
 
-function DashboardPage({ onOpenNavigation }: DashboardPageProps) {
+function DashboardPage({ role, onOpenNavigation }: DashboardPageProps) {
   return (
     <main className="dashboard-page">
       <section className="hero-panel" aria-labelledby="dashboard-hero-title">
@@ -77,6 +79,7 @@ function DashboardPage({ onOpenNavigation }: DashboardPageProps) {
             <ModuleCard
               key={module.title}
               {...module}
+              prioritized={role.priorities.includes(module.title)}
               onOpen={
                 module.status === "Operational" ? onOpenNavigation : undefined
               }

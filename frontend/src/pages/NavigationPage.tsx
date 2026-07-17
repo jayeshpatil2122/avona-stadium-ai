@@ -4,8 +4,13 @@ import StatusBadge from "../components/common/StatusBadge";
 import AIResponsePanel from "../components/navigation/AIResponsePanel";
 import RoutePlanner from "../components/navigation/RoutePlanner";
 import RouteVisualization from "../components/navigation/RouteVisualization";
+import type { StadiumRole } from "../types/role";
 
-function NavigationPage() {
+interface NavigationPageProps {
+  role: StadiumRole;
+}
+
+function NavigationPage({ role }: NavigationPageProps) {
   const [location, setLocation] = useState("Main Entrance");
   const [destination, setDestination] = useState("Gate A");
   const [result, setResult] = useState("");
@@ -20,7 +25,7 @@ function NavigationPage() {
     try {
       const data = await generateAIResponse({
         module: "navigation",
-        user_role: "fan",
+        user_role: role.value,
         language: "English",
         stadium: "Demo World Cup Stadium",
         location,
@@ -73,7 +78,7 @@ function NavigationPage() {
           <dl>
             <div>
               <dt>User Role</dt>
-              <dd>Fan</dd>
+              <dd>{role.label}</dd>
             </div>
             <div>
               <dt>Language</dt>

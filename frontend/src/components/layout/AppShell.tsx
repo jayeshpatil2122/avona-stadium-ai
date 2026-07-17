@@ -10,8 +10,10 @@ interface AppShellProps {
   activeView: AppView;
   title: string;
   eyebrow: string;
+  roleModeLabel: string;
   children: React.ReactNode;
   onNavigate: (view: AppView) => void;
+  onSwitchRole: () => void;
 }
 
 const navigationItems: NavigationItem[] = [
@@ -31,8 +33,10 @@ function AppShell({
   activeView,
   title,
   eyebrow,
+  roleModeLabel,
   children,
   onNavigate,
+  onSwitchRole,
 }: AppShellProps) {
   return (
     <div className="app-shell">
@@ -95,6 +99,9 @@ function AppShell({
         <button type="button" onClick={() => onNavigate("navigation")}>
           Navigation
         </button>
+        <button type="button" onClick={onSwitchRole}>
+          Role
+        </button>
       </div>
 
       <div className="workspace">
@@ -108,7 +115,10 @@ function AppShell({
             <StatusBadge tone="operational" pulse>
               AI Systems Operational
             </StatusBadge>
-            <span className="role-chip">Fan Mode</span>
+            <span className="role-chip">{roleModeLabel}</span>
+            <button className="switch-role-button" type="button" onClick={onSwitchRole}>
+              Switch Role
+            </button>
           </div>
         </header>
 

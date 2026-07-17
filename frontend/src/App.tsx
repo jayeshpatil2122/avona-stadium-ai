@@ -1,10 +1,20 @@
 import { useMemo, useState } from "react";
 import AppShell, { type AppView } from "./components/layout/AppShell";
+import RoleProvider from "./context/RoleProvider";
+import { useRole } from "./context/useRole";
 import DashboardPage from "./pages/DashboardPage";
 import NavigationPage from "./pages/NavigationPage";
+import RoleSelectionPage from "./pages/RoleSelectionPage";
+import WelcomePage from "./pages/WelcomePage";
 import "./styles/app.css";
 
-function App() {
+type OnboardingStep = "welcome" | "role" | "app";
+
+function AppExperience() {
+  const { role, clearRole } = useRole();
+  const [onboardingStep, setOnboardingStep] = useState<OnboardingStep>(
+    role ? "app" : "welcome",
+  );
   const [activeView, setActiveView] = useState<AppView>("dashboard");
 
   const headerCopy = useMemo(() => {
@@ -21,19 +31,46 @@ function App() {
     };
   }, [activeView]);
 
+  if (onboardingStep === "welcome") {
+    return <WelcomePage onEnter={() => setOnboardingStep("role")} />;
+  }
+
+  if (onboardingStep === "role" || !role) {
+    return <RoleSelectionPage onContinue={() => setOnboardingStep("app")} />;
+  }
+
+  const handleSwitchRole = () => {
+    clearRole();
+    setActiveView("dashboard");
+    setOnboardingStep("role");
+  };
+
   return (
     <AppShell
       activeView={activeView}
       title={headerCopy.title}
       eyebrow={headerCopy.eyebrow}
+      roleModeLabel={role.modeLabel}
       onNavigate={setActiveView}
+      onSwitchRole={handleSwitchRole}
     >
       {activeView === "navigation" ? (
-        <NavigationPage />
+        <NavigationPage role={role} />
       ) : (
-        <DashboardPage onOpenNavigation={() => setActiveView("navigation")} />
+        <DashboardPage
+          role={role}
+          onOpenNavigation={() => setActiveView("navigation")}
+        />
       )}
     </AppShell>
+  );
+}
+
+function App() {
+  return (
+    <RoleProvider>
+      <AppExperience />
+    </RoleProvider>
   );
 }
 

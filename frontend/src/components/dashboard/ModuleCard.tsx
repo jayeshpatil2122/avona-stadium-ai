@@ -5,6 +5,7 @@ interface ModuleCardProps {
   description: string;
   icon: string;
   status: "Operational" | "Coming Soon";
+  prioritized?: boolean;
   onOpen?: () => void;
 }
 
@@ -13,9 +14,11 @@ function ModuleCard({
   description,
   icon,
   status,
+  prioritized = false,
   onOpen,
 }: ModuleCardProps) {
   const isOperational = status === "Operational";
+  const className = `module-card ${prioritized ? "module-card--prioritized" : ""}`;
   const content = (
     <>
       <span className="module-card__icon" aria-hidden="true">
@@ -33,13 +36,13 @@ function ModuleCard({
 
   if (onOpen) {
     return (
-      <button className="module-card module-card--button" type="button" onClick={onOpen}>
+      <button className={`${className} module-card--button`} type="button" onClick={onOpen}>
         {content}
       </button>
     );
   }
 
-  return <article className="module-card">{content}</article>;
+  return <article className={className}>{content}</article>;
 }
 
 export default ModuleCard;
