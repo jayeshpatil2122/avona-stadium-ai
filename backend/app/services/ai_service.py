@@ -3,7 +3,7 @@ from fastapi import HTTPException
 from app.agents.navigation import NavigationIntelligence
 from app.schemas.ai import AIRequest
 from app.services.llm.provider_factory import ProviderFactory
-
+from app.agents.multilingual import MultilingualIntelligence
 
 class AIService:
 
@@ -12,8 +12,8 @@ class AIService:
 
         self.modules = {
             "navigation": NavigationIntelligence(self.provider),
+            "multilingual": MultilingualIntelligence(self.provider),
         }
-
     def process(self, data: AIRequest):
 
         module_name = data.module.lower().strip()
