@@ -6,6 +6,7 @@ import type { StadiumRole } from "../types/role";
 interface DashboardPageProps {
   role: StadiumRole;
   onOpenNavigation: () => void;
+  onOpenMultilingual: () => void;
 }
 
 const modules = [
@@ -37,11 +38,27 @@ const modules = [
     title: "Multilingual Assistance",
     description: "Language-aware help experiences for global tournament audiences.",
     icon: "L10",
-    status: "Coming Soon" as const,
+    status: "Operational" as const,
   },
 ];
 
-function DashboardPage({ role, onOpenNavigation }: DashboardPageProps) {
+function DashboardPage({
+  role,
+  onOpenNavigation,
+  onOpenMultilingual,
+}: DashboardPageProps) {
+  const getModuleOpenHandler = (title: string) => {
+    if (title === "Navigation Intelligence") {
+      return onOpenNavigation;
+    }
+
+    if (title === "Multilingual Assistance") {
+      return onOpenMultilingual;
+    }
+
+    return undefined;
+  };
+
   return (
     <main className="dashboard-page">
       <section className="hero-panel" aria-labelledby="dashboard-hero-title">
@@ -80,9 +97,7 @@ function DashboardPage({ role, onOpenNavigation }: DashboardPageProps) {
               key={module.title}
               {...module}
               prioritized={role.priorities.includes(module.title)}
-              onOpen={
-                module.status === "Operational" ? onOpenNavigation : undefined
-              }
+              onOpen={getModuleOpenHandler(module.title)}
             />
           ))}
         </div>
@@ -95,7 +110,7 @@ function DashboardPage({ role, onOpenNavigation }: DashboardPageProps) {
         </div>
         <div className="metric-grid">
           <SystemMetric label="AI Provider" value="Groq" detail="Connected through FastAPI" />
-          <SystemMetric label="Active Modules" value="1" detail="Navigation Intelligence" />
+          <SystemMetric label="Active Modules" value="2" detail="Navigation and Multilingual Intelligence" />
           <SystemMetric label="Platform Status" value="Operational" detail="Frontend connected to API" />
           <SystemMetric label="Navigation Data" value="Verified Demo Routes" detail="No fake live crowd stats" />
         </div>

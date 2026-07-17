@@ -16,6 +16,7 @@ function NavigationPage({ role }: NavigationPageProps) {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const hasResponseState = loading || Boolean(error) || Boolean(result);
 
   const handleNavigate = async () => {
     setLoading(true);
@@ -68,40 +69,46 @@ function NavigationPage({ role }: NavigationPageProps) {
           onSubmit={handleNavigate}
         />
 
-        <aside className="panel context-panel" aria-labelledby="context-title">
-          <div className="panel__header">
-            <div>
-              <p className="eyebrow">Request Context</p>
-              <h2 id="context-title">Current AI Context</h2>
-            </div>
-          </div>
-          <dl>
-            <div>
-              <dt>User Role</dt>
-              <dd>{role.label}</dd>
-            </div>
-            <div>
-              <dt>Language</dt>
-              <dd>English</dd>
-            </div>
-            <div>
-              <dt>Stadium</dt>
-              <dd>Demo World Cup Stadium</dd>
-            </div>
-            <div>
-              <dt>Module</dt>
-              <dd>Navigation</dd>
-            </div>
-          </dl>
-        </aside>
+        {hasResponseState && (
+          <AIResponsePanel result={result} loading={loading} error={error} />
+        )}
 
-        <RouteVisualization
-          location={location}
-          destination={destination}
-          hasResult={Boolean(result)}
-        />
+        {result && (
+          <RouteVisualization
+            location={location}
+            destination={destination}
+            hasResult={Boolean(result)}
+          />
+        )}
 
-        <AIResponsePanel result={result} loading={loading} error={error} />
+        {hasResponseState && (
+          <aside className="panel context-panel" aria-labelledby="context-title">
+            <div className="panel__header">
+              <div>
+                <p className="eyebrow">Request Context</p>
+                <h2 id="context-title">Current AI Context</h2>
+              </div>
+            </div>
+            <dl>
+              <div>
+                <dt>User Role</dt>
+                <dd>{role.label}</dd>
+              </div>
+              <div>
+                <dt>Language</dt>
+                <dd>English</dd>
+              </div>
+              <div>
+                <dt>Stadium</dt>
+                <dd>Demo World Cup Stadium</dd>
+              </div>
+              <div>
+                <dt>Module</dt>
+                <dd>Navigation</dd>
+              </div>
+            </dl>
+          </aside>
+        )}
       </div>
     </main>
   );

@@ -3,6 +3,7 @@ import AppShell, { type AppView } from "./components/layout/AppShell";
 import RoleProvider from "./context/RoleProvider";
 import { useRole } from "./context/useRole";
 import DashboardPage from "./pages/DashboardPage";
+import MultilingualPage from "./pages/MultilingualPage";
 import NavigationPage from "./pages/NavigationPage";
 import RoleSelectionPage from "./pages/RoleSelectionPage";
 import WelcomePage from "./pages/WelcomePage";
@@ -22,6 +23,13 @@ function AppExperience() {
       return {
         title: "Navigation Intelligence",
         eyebrow: "Verified Stadium Routing",
+      };
+    }
+
+    if (activeView === "multilingual") {
+      return {
+        title: "Multilingual Intelligence",
+        eyebrow: "AI-Powered Stadium Translation",
       };
     }
 
@@ -56,10 +64,13 @@ function AppExperience() {
     >
       {activeView === "navigation" ? (
         <NavigationPage role={role} />
+      ) : activeView === "multilingual" ? (
+        <MultilingualPage role={role} />
       ) : (
         <DashboardPage
           role={role}
           onOpenNavigation={() => setActiveView("navigation")}
+          onOpenMultilingual={() => setActiveView("multilingual")}
         />
       )}
     </AppShell>

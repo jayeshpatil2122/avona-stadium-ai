@@ -24,7 +24,8 @@
 .primary-action,
 .secondary-action,
 .switch-role-button,
-.role-card {
+.role-card,
+.quick-message {
   cursor: pointer;
 }
 
@@ -465,7 +466,8 @@
 }
 
 .dashboard-page,
-.navigation-page {
+.navigation-page,
+.multilingual-page {
   display: grid;
   gap: 24px;
 }
@@ -714,7 +716,8 @@
   z-index: 1;
 }
 
-.navigation-grid {
+.navigation-grid,
+.multilingual-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
   gap: 18px;
@@ -751,14 +754,75 @@
   font-weight: 800;
 }
 
-.planner-form select {
+.planner-form select,
+.planner-form textarea {
   width: 100%;
-  min-height: 48px;
   padding: 0 14px;
   border: 1px solid var(--border);
   border-radius: 8px;
   color: var(--heading);
   background: rgba(5, 11, 22, 0.88);
+}
+
+.planner-form select {
+  min-height: 48px;
+}
+
+.planner-form textarea {
+  min-height: 168px;
+  padding-block: 12px;
+  line-height: 1.55;
+  resize: vertical;
+}
+
+.translation-form {
+  gap: 14px;
+}
+
+.quick-message-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.quick-message {
+  padding: 8px 10px;
+  border: 1px solid rgba(154, 203, 255, 0.16);
+  border-radius: 999px;
+  color: var(--text);
+  text-align: left;
+  background: rgba(255, 255, 255, 0.055);
+  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.quick-message:hover {
+  transform: translateY(-1px);
+  border-color: var(--border-strong);
+  background: rgba(87, 215, 255, 0.1);
+}
+
+.field-helper {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.translation-result {
+  grid-column: 1 / -1;
+}
+
+.translation-copy {
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+
+.translation-copy[dir="rtl"] {
+  text-align: right;
+  font-size: 1.16rem;
+}
+
+.switch-role-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .context-panel dl {
@@ -951,6 +1015,8 @@
     top: 0;
     z-index: 10;
     display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
     justify-content: space-between;
     padding: 12px 16px;
     border-bottom: 1px solid var(--border);
@@ -959,6 +1025,7 @@
   }
 
   .mobile-brand button {
+    flex: 1 1 auto;
     min-height: 38px;
     padding: 0 10px;
     border: 1px solid var(--border);
@@ -987,7 +1054,8 @@
     min-height: 250px;
   }
 
-  .navigation-grid {
+  .navigation-grid,
+  .multilingual-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1001,6 +1069,10 @@
 
   .welcome-array {
     min-height: 300px;
+  }
+
+  .translation-result {
+    grid-column: auto;
   }
 }
 
@@ -1055,5 +1127,10 @@
 
   .context-panel dd {
     text-align: left;
+  }
+
+  .quick-message,
+  .translation-form .primary-action {
+    width: 100%;
   }
 }
