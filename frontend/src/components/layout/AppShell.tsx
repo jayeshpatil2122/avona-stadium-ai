@@ -127,14 +127,22 @@ function AppShell({
           </div>
           <div className="top-header__meta" aria-label="System context">
             <span className="stadium-chip">Demo World Cup Stadium</span>
-            <button className="secondary-action" type="button" onClick={onGoWelcome}>
-              Go to Welcome
+            <button
+              className="switch-role-button app-header-button"
+              type="button"
+              onClick={onGoWelcome}
+            >
+              Return to Welcome Screen
             </button>
             <StatusBadge tone="operational" pulse>
               AI Systems Operational
             </StatusBadge>
             <span className="role-chip">{roleModeLabel}</span>
-            <button className="switch-role-button" type="button" onClick={onSwitchRole}>
+            <button
+              className="switch-role-button app-header-button"
+              type="button"
+              onClick={onSwitchRole}
+            >
               Switch Role
             </button>
           </div>

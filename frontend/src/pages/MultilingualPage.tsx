@@ -165,7 +165,6 @@ function MultilingualPage({ role }: MultilingualPageProps) {
             </p>
 
             <button className="primary-action" type="submit" disabled={loading}>
-              <span aria-hidden="true">{loading ? "AI" : "Go"}</span>
               {loading ? "Translating..." : "Translate with AI"}
             </button>
           </form>

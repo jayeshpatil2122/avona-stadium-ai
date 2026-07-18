@@ -72,7 +72,6 @@ function DashboardPage({
             support for the next generation of stadium experiences.
           </p>
           <button className="primary-action" type="button" onClick={onOpenNavigation}>
-            <span aria-hidden="true">Open</span>
             Open Navigation Intelligence
           </button>
         </div>

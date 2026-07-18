@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import RoleCard from "../components/onboarding/RoleCard";
 import { useRole } from "../context/useRole";
 import type { StadiumRole } from "../types/role";
@@ -12,10 +12,36 @@ function RoleSelectionPage({ onContinue }: RoleSelectionPageProps) {
   const [selectedRole, setSelectedRole] = useState<StadiumRole>(
     role ?? roles[0],
   );
+  const continueButtonRef = useRef<HTMLButtonElement>(null);
+  const hasInteractedRef = useRef(false);
+
+  useEffect(() => {
+    if (!hasInteractedRef.current) {
+      return;
+    }
+
+    const isMobile = window.matchMedia("(max-width: 560px)").matches;
+
+    if (!isMobile) {
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      continueButtonRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    });
+  }, [selectedRole]);
 
   const handleContinue = () => {
     selectRole(selectedRole.value);
     onContinue();
+  };
+
+  const handleSelectRole = (nextRole: StadiumRole) => {
+    hasInteractedRef.current = true;
+    setSelectedRole(nextRole);
   };
 
   return (
@@ -36,18 +62,18 @@ function RoleSelectionPage({ onContinue }: RoleSelectionPageProps) {
               key={availableRole.value}
               role={availableRole}
               selected={selectedRole.value === availableRole.value}
-              onSelect={setSelectedRole}
+              onSelect={handleSelectRole}
             />
           ))}
         </div>
 
         <div className="role-selection-footer">
           <button
+            ref={continueButtonRef}
             className="primary-action"
             type="button"
             onClick={handleContinue}
           >
-            <span aria-hidden="true">Go</span>
             Continue as {selectedRole.label}
           </button>
         </div>

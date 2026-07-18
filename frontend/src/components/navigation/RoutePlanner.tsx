@@ -63,7 +63,6 @@ function RoutePlanner({
         </label>
 
         <button className="primary-action" type="submit" disabled={loading}>
-          <span aria-hidden="true">{loading ? "Scanning" : "Route"}</span>
           {loading ? "Finding Intelligent Route..." : "Find Intelligent Route"}
         </button>
       </form>

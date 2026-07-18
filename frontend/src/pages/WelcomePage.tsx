@@ -68,6 +68,17 @@ function WelcomePage({ onEnter }: WelcomePageProps) {
         </div>
       </div>
 
+      <section
+        className={`welcome-intro ${mounted ? "is-mounted" : ""}`}
+        aria-labelledby="welcome-intro-title"
+      >
+        <p className="welcome-intro__kicker">Avona StadiumAI</p>
+        <h1 id="welcome-intro-title">Welcome to Avona StadiumAI</h1>
+        <p className="welcome-intro__subtitle">
+          Intelligent Stadium Management, Powered by AI
+        </p>
+      </section>
+
       <div className="welcome-splash__cta" aria-live="polite">
         {canContinue ? (
           <div className="welcome-cta-row">
@@ -76,7 +87,6 @@ function WelcomePage({ onEnter }: WelcomePageProps) {
               type="button"
               onClick={onEnter}
             >
-              <span aria-hidden="true">Enter</span>
               Get Started
             </button>
           </div>
