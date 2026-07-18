@@ -7,6 +7,7 @@ interface DashboardPageProps {
   role: StadiumRole;
   onOpenNavigation: () => void;
   onOpenCrowd: () => void;
+  onOpenAccessibility: () => void;
   onOpenMultilingual: () => void;
 }
 
@@ -33,7 +34,7 @@ const modules = [
     title: "Accessibility Intelligence",
     description: "Inclusive routing and assistance workflows for every visitor.",
     icon: "ACC",
-    status: "Coming Soon" as const,
+    status: "Operational" as const,
   },
   {
     title: "Multilingual Assistance",
@@ -47,6 +48,7 @@ function DashboardPage({
   role,
   onOpenNavigation,
   onOpenCrowd,
+  onOpenAccessibility,
   onOpenMultilingual,
 }: DashboardPageProps) {
   const getModuleOpenHandler = (title: string) => {
@@ -56,6 +58,10 @@ function DashboardPage({
 
     if (title === "Crowd Intelligence") {
       return onOpenCrowd;
+    }
+
+    if (title === "Accessibility Intelligence") {
+      return onOpenAccessibility;
     }
 
     if (title === "Multilingual Assistance") {
@@ -115,9 +121,9 @@ function DashboardPage({
         </div>
         <div className="metric-grid">
           <SystemMetric label="AI Provider" value="Groq" detail="Connected through FastAPI" />
-          <SystemMetric label="Active Modules" value="3" detail="Navigation, Crowd, and Multilingual Intelligence" />
+          <SystemMetric label="Active Modules" value="4" detail="Navigation, Crowd, Accessibility, and Multilingual" />
           <SystemMetric label="Platform Status" value="Operational" detail="Frontend connected to API" />
-          <SystemMetric label="Demo Data" value="Verified Routes + Simulated Crowds" detail="No fake live sensors or FIFA data" />
+          <SystemMetric label="Demo Data" value="Verified Routes + Simulated Crowds" detail="No fake live sensors or official FIFA data" />
         </div>
       </section>
     </main>

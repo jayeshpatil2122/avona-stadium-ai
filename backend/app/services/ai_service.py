@@ -4,6 +4,7 @@ import logging
 from app.agents.multilingual import MultilingualIntelligence
 from app.agents.navigation import NavigationIntelligence
 from app.agents.crowd import CrowdIntelligence
+from app.agents.accessibility import AccessibilityIntelligence
 from app.schemas.ai import AIRequest
 from app.services.llm.provider_factory import ProviderFactory
 
@@ -19,6 +20,7 @@ class AIService:
             "navigation": NavigationIntelligence(self.provider),
             "multilingual": MultilingualIntelligence(self.provider),
             "crowd": CrowdIntelligence(self.provider),
+            "accessibility": AccessibilityIntelligence(self.provider),
         }
 
     def process(self, data: AIRequest):

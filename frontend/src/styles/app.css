@@ -148,7 +148,7 @@
 }
 
 .top-header h1 {
-  font-size: clamp(2rem, 5vw, 4.5rem);
+  font-size: clamp(1.7rem, 3.6vw, 3.25rem);
   line-height: 0.95;
 }
 
@@ -252,8 +252,8 @@
 .role-selection-panel h1 {
   max-width: 900px;
   color: var(--heading);
-  font-size: clamp(2.75rem, 7vw, 6.8rem);
-  line-height: 0.9;
+  font-size: clamp(2.2rem, 5.4vw, 5rem);
+  line-height: 0.94;
 }
 
 .welcome-panel p,
@@ -487,7 +487,8 @@
 .dashboard-page,
 .navigation-page,
 .multilingual-page,
-.crowd-page {
+.crowd-page,
+.accessibility-page {
   display: grid;
   gap: 24px;
 }
@@ -525,8 +526,8 @@
 .hero-panel h2,
 .navigation-hero h2 {
   max-width: 850px;
-  font-size: clamp(2.3rem, 6vw, 5.7rem);
-  line-height: 0.93;
+  font-size: clamp(1.9rem, 4.2vw, 4.1rem);
+  line-height: 0.98;
 }
 
 .hero-panel p,
@@ -727,7 +728,8 @@
 
 .navigation-grid,
 .multilingual-grid,
-.crowd-grid {
+.crowd-grid,
+.accessibility-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
   gap: 18px;
@@ -931,6 +933,112 @@
 
 .crowd-recommendation {
   grid-column: 1 / -1;
+}
+
+.assistance-fieldset {
+  display: grid;
+  gap: 12px;
+  padding: 0;
+  border: 0;
+}
+
+.assistance-fieldset legend {
+  margin-bottom: 8px;
+  color: var(--heading);
+  font-weight: 800;
+}
+
+.assistance-option-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.assistance-option {
+  display: grid;
+}
+
+.assistance-option input {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  opacity: 0;
+}
+
+.assistance-option__body {
+  display: grid;
+  gap: 7px;
+  min-height: 132px;
+  padding: 14px;
+  border: 1px solid rgba(154, 203, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.045);
+  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.assistance-option__body strong {
+  color: var(--heading);
+}
+
+.assistance-option__body small {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.assistance-option input:checked + .assistance-option__body {
+  border-color: var(--border-strong);
+  background: linear-gradient(145deg, rgba(17, 40, 61, 0.86), rgba(8, 20, 35, 0.78));
+}
+
+.assistance-option input:focus-visible + .assistance-option__body {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+.assistance-option:hover .assistance-option__body {
+  transform: translateY(-2px);
+  border-color: rgba(87, 215, 255, 0.25);
+}
+
+.assistance-option__selected {
+  width: fit-content;
+  margin-top: auto;
+  padding: 5px 8px;
+  border: 1px solid rgba(89, 240, 183, 0.34);
+  border-radius: 999px;
+  color: #d9fff1;
+  font-size: 0.76rem;
+  font-weight: 900;
+  background: rgba(89, 240, 183, 0.1);
+}
+
+.accessibility-result {
+  grid-column: 1 / -1;
+}
+
+.accessibility-summary {
+  display: grid;
+  gap: 12px;
+  margin: 18px 0 0;
+}
+
+.accessibility-summary div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(154, 203, 255, 0.1);
+}
+
+.accessibility-summary dt {
+  color: var(--muted);
+}
+
+.accessibility-summary dd {
+  margin: 0;
+  color: var(--heading);
+  font-weight: 800;
+  text-align: right;
 }
 
 .switch-role-button:disabled {
@@ -1408,8 +1516,8 @@
 }
 
 .welcome-intro h1 {
-  font-size: clamp(2rem, 6vw, 5.4rem);
-  line-height: 0.95;
+  font-size: clamp(1.9rem, 4.8vw, 4.3rem);
+  line-height: 1;
   text-wrap: balance;
   text-shadow: 0 0 38px rgba(87, 215, 255, 0.24);
 }
@@ -1629,7 +1737,8 @@
 
   .navigation-grid,
   .multilingual-grid,
-  .crowd-grid {
+  .crowd-grid,
+  .accessibility-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1650,6 +1759,10 @@
   }
 
   .crowd-recommendation {
+    grid-column: auto;
+  }
+
+  .accessibility-result {
     grid-column: auto;
   }
 }
@@ -1673,12 +1786,12 @@
 
   .hero-panel h2,
   .navigation-hero h2 {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 
   .welcome-panel h1,
   .role-selection-panel h1 {
-    font-size: 2.4rem;
+    font-size: 2.15rem;
   }
 
   .role-grid {
@@ -1724,5 +1837,21 @@
   .crowd-hero-status > *,
   .crowd-control-panel .primary-action {
     justify-content: center;
+  }
+
+  .assistance-option-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .accessibility-planner .primary-action {
+    width: 100%;
+  }
+
+  .accessibility-summary div {
+    display: grid;
+  }
+
+  .accessibility-summary dd {
+    text-align: left;
   }
 }

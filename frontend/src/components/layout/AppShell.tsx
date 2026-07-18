@@ -1,6 +1,11 @@
 import StatusBadge from "../common/StatusBadge";
 
-export type AppView = "dashboard" | "navigation" | "crowd" | "multilingual";
+export type AppView =
+  | "dashboard"
+  | "navigation"
+  | "crowd"
+  | "accessibility"
+  | "multilingual";
 
 type NavigationItem =
   | { label: string; view: AppView; status: "Ready" | "Operational" }
@@ -30,7 +35,11 @@ const navigationItems: NavigationItem[] = [
     status: "Operational",
   },
   { label: "Operations Intelligence", status: "Coming Soon" },
-  { label: "Accessibility", status: "Coming Soon" },
+  {
+    label: "Accessibility",
+    view: "accessibility" as const,
+    status: "Operational",
+  },
   {
     label: "Multilingual Assistant",
     view: "multilingual" as const,
@@ -114,6 +123,9 @@ function AppShell({
         </button>
         <button type="button" onClick={() => onNavigate("crowd")}>
           Crowd
+        </button>
+        <button type="button" onClick={() => onNavigate("accessibility")}>
+          Access
         </button>
         <button type="button" onClick={() => onNavigate("multilingual")}>
           Translate

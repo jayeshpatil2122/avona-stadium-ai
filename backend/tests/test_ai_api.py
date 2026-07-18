@@ -272,3 +272,64 @@ def test_multilingual_api_handles_provider_failure():
 
     finally:
         app.dependency_overrides.clear()
+
+def test_accessibility_api_with_fake_provider():
+    from app.agents.accessibility import AccessibilityIntelligence
+
+    fake_provider = FakeProvider()
+
+    fake_service = AIService()
+    fake_service.modules["accessibility"] = (
+        AccessibilityIntelligence(fake_provider)
+    )
+
+    app.dependency_overrides[get_ai_service] = (
+        lambda: fake_service
+    )
+
+    try:
+        response = client.post(
+            "/api/ai/generate",
+            json={
+                "module": "accessibility",
+                "user_role": "fan",
+                "language": "English",
+                "stadium": "Demo World Cup Stadium",
+                "location": "Gate B",
+                "destination": None,
+                "assistance_type": "accessible_seating",
+                "prompt": (
+                    "I need accessible seating assistance."
+                ),
+            },
+        )
+
+        assert response.status_code == 200
+
+        data = response.json()
+
+        assert data["module"] == "accessibility"
+        assert data["response"] == "Mock AI response"
+
+    finally:
+        app.dependency_overrides.clear()
+
+def test_accessibility_accepts_optional_assistance_type():
+    response = client.post(
+        "/api/ai/generate",
+        json={
+            "module": "accessibility",
+            "user_role": "fan",
+            "language": "English",
+            "stadium": "Demo World Cup Stadium",
+            "location": "Main Entrance",
+            "destination": None,
+            "assistance_type": "accessible_toilet",
+            "prompt": "Help me find an accessible toilet.",
+        },
+    )
+
+    # The request schema should accept assistance_type.
+    # The provider may be mocked elsewhere in the test suite,
+    # so this test mainly verifies schema/API compatibility.
+    assert response.status_code != 422

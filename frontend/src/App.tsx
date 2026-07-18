@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import AppShell, { type AppView } from "./components/layout/AppShell";
 import RoleProvider from "./context/RoleProvider";
 import { useRole } from "./context/useRole";
+import AccessibilityPage from "./pages/AccessibilityPage";
 import CrowdPage from "./pages/CrowdPage";
 import DashboardPage from "./pages/DashboardPage";
 import MultilingualPage from "./pages/MultilingualPage";
@@ -41,6 +42,13 @@ function AppExperience() {
       };
     }
 
+    if (activeView === "accessibility") {
+      return {
+        title: "Accessibility Intelligence",
+        eyebrow: "Need-Based Inclusive Assistance",
+      };
+    }
+
     return {
       title: "Command Center",
       eyebrow: "AI-Powered Stadium Operations Platform",
@@ -75,6 +83,8 @@ function AppExperience() {
         <NavigationPage role={role} />
       ) : activeView === "crowd" ? (
         <CrowdPage role={role} />
+      ) : activeView === "accessibility" ? (
+        <AccessibilityPage role={role} />
       ) : activeView === "multilingual" ? (
         <MultilingualPage role={role} />
       ) : (
@@ -82,6 +92,7 @@ function AppExperience() {
           role={role}
           onOpenNavigation={() => setActiveView("navigation")}
           onOpenCrowd={() => setActiveView("crowd")}
+          onOpenAccessibility={() => setActiveView("accessibility")}
           onOpenMultilingual={() => setActiveView("multilingual")}
         />
       )}

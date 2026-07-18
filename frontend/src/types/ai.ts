@@ -5,6 +5,7 @@ export interface AIRequest {
   stadium: string;
   location: string;
   destination: string | null;
+  assistance_type?: string | null;
   prompt: string;
 }
 
