@@ -14,6 +14,7 @@ interface AppShellProps {
   children: React.ReactNode;
   onNavigate: (view: AppView) => void;
   onSwitchRole: () => void;
+  onGoWelcome: () => void;
 }
 
 const navigationItems: NavigationItem[] = [
@@ -41,6 +42,7 @@ function AppShell({
   children,
   onNavigate,
   onSwitchRole,
+  onGoWelcome,
 }: AppShellProps) {
   return (
     <div className="app-shell">
@@ -50,13 +52,16 @@ function AppShell({
           type="button"
           onClick={() => onNavigate("dashboard")}
           aria-label="Open command center"
-        >
-          <span className="brand-mark" aria-hidden="true">
-            A
-          </span>
+>
+          <img
+          src="/Avona_StadiumAI_logo.png"
+          alt=""
+          className="brand-mark"
+          />
+
           <span>
-            <strong>Avona StadiumAI</strong>
-            <small>AI-Powered Stadium Operations</small>
+          <strong>Avona StadiumAI</strong>
+          <small>AI-Powered Stadium Operations</small>
           </span>
         </button>
 
@@ -109,6 +114,9 @@ function AppShell({
         <button type="button" onClick={onSwitchRole}>
           Role
         </button>
+        <button type="button" onClick={onGoWelcome}>
+          Welcome
+        </button>
       </div>
 
       <div className="workspace">
@@ -119,6 +127,9 @@ function AppShell({
           </div>
           <div className="top-header__meta" aria-label="System context">
             <span className="stadium-chip">Demo World Cup Stadium</span>
+            <button className="secondary-action" type="button" onClick={onGoWelcome}>
+              Go to Welcome
+            </button>
             <StatusBadge tone="operational" pulse>
               AI Systems Operational
             </StatusBadge>

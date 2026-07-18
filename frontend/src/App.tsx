@@ -61,6 +61,7 @@ function AppExperience() {
       roleModeLabel={role.modeLabel}
       onNavigate={setActiveView}
       onSwitchRole={handleSwitchRole}
+      onGoWelcome={() => setOnboardingStep("welcome")}
     >
       {activeView === "navigation" ? (
         <NavigationPage role={role} />
