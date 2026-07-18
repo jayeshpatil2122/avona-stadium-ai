@@ -65,11 +65,10 @@ This architecture helps reduce AI hallucinations while maintaining the flexibili
 * [💡 Problem Statement](#-problem-statement)
 * [🚀 Our Solution](#-our-solution)
 * [✨ Core Intelligence Modules](#-core-intelligence-modules)
-
-  * [🧭 Navigation Intelligence](#-1-navigation-intelligence)
-  * [👥 Crowd Intelligence](#-2-crowd-intelligence)
-  * [♿ Accessibility Intelligence](#-3-accessibility-intelligence)
-  * [🌍 Multilingual Assistant](#-4-multilingual-assistant)
+* [🧭 Navigation Intelligence](#-1-navigation-intelligence)
+* [👥 Crowd Intelligence](#-2-crowd-intelligence)
+* [♿ Accessibility Intelligence](#-3-accessibility-intelligence)
+* [🌍 Multilingual Assistant](#-4-multilingual-assistant)
 * [🧠 Hybrid Intelligence Architecture](#-hybrid-intelligence-architecture)
 * [🏗️ Technical Architecture](#️-technical-architecture)
 * [🛠️ Technology Stack](#️-technology-stack)
@@ -99,13 +98,12 @@ This architecture helps reduce AI hallucinations while maintaining the flexibili
 ### 🚀 Live Application
 
 **Frontend:**
-`YOUR_VERCEL_DEPLOYMENT_URL`
+`https://avona-stadium-ai.vercel.app/`
 
 ### 💻 GitHub Repository
 
-`YOUR_GITHUB_REPOSITORY_URL`
+`https://github.com/jayeshpatil2122/avona-stadium-ai`
 
-> Replace the URLs above with your actual deployment and public GitHub repository links before submission.
 
 ---
 
@@ -608,67 +606,7 @@ avona-stadium-ai/
 └── ...
 ```
 
----
 
-# 📸 Screenshots & Demo
-
-> Add screenshots of your deployed application here before final submission.
-
-## 🏠 Welcome Screen
-
-```text
-Add screenshot here
-```
-
-## 👤 Role Selection
-
-```text
-Add screenshot here
-```
-
-## 🧭 Navigation Intelligence
-
-```text
-Add screenshot here
-```
-
-## 👥 Crowd Intelligence
-
-```text
-Add screenshot here
-```
-
-## ♿ Accessibility Intelligence
-
-```text
-Add screenshot here
-```
-
-## 🌍 Multilingual Assistant
-
-```text
-Add screenshot here
-```
-
-### Example Markdown for Screenshots
-
-```markdown
-![Avona StadiumAI Welcome Screen](screenshots/welcome-screen.png)
-```
-
-For repository screenshots, you can create:
-
-```text
-screenshots/
-├── welcome-screen.png
-├── role-selection.png
-├── navigation.png
-├── crowd-intelligence.png
-├── accessibility.png
-└── multilingual.png
-```
-
----
 
 # 🧪 Testing Strategy
 
@@ -1020,7 +958,7 @@ Install:
 ## 1️⃣ Clone the Repository
 
 ```bash
-git clone YOUR_REPOSITORY_URL
+git clone https://github.com/jayeshpatil2122/avona-stadium-ai
 cd avona-stadium-ai
 ```
 
