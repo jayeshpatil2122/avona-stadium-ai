@@ -4,7 +4,7 @@ export interface AIRequest {
   language: string;
   stadium: string;
   location: string;
-  destination: string;
+  destination: string | null;
   prompt: string;
 }
 

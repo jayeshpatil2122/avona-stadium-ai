@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import AppShell, { type AppView } from "./components/layout/AppShell";
 import RoleProvider from "./context/RoleProvider";
 import { useRole } from "./context/useRole";
+import CrowdPage from "./pages/CrowdPage";
 import DashboardPage from "./pages/DashboardPage";
 import MultilingualPage from "./pages/MultilingualPage";
 import NavigationPage from "./pages/NavigationPage";
@@ -30,6 +31,13 @@ function AppExperience() {
       return {
         title: "Multilingual Intelligence",
         eyebrow: "AI-Powered Stadium Translation",
+      };
+    }
+
+    if (activeView === "crowd") {
+      return {
+        title: "Crowd Intelligence",
+        eyebrow: "AI-Assisted Crowd Operations",
       };
     }
 
@@ -65,12 +73,15 @@ function AppExperience() {
     >
       {activeView === "navigation" ? (
         <NavigationPage role={role} />
+      ) : activeView === "crowd" ? (
+        <CrowdPage role={role} />
       ) : activeView === "multilingual" ? (
         <MultilingualPage role={role} />
       ) : (
         <DashboardPage
           role={role}
           onOpenNavigation={() => setActiveView("navigation")}
+          onOpenCrowd={() => setActiveView("crowd")}
           onOpenMultilingual={() => setActiveView("multilingual")}
         />
       )}
