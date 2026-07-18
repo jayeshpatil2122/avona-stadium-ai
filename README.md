@@ -1,283 +1,557 @@
 # 🏟️ Avona StadiumAI
 
-### AI-Powered Smart Stadium Operations & Fan Experience Platform
+### AI-Powered Stadium Operations & Inclusive Fan Assistance Platform
 
-Avona StadiumAI is a Generative AI-enabled smart stadium platform designed to enhance stadium operations and the overall tournament experience during large-scale sporting events such as the FIFA World Cup 2026.
+![Python](https://img.shields.io/badge/Python-3.11+-blue?logo=python)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?logo=fastapi)
+![React](https://img.shields.io/badge/React-Frontend-61DAFB?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-Frontend-3178C6?logo=typescript)
+![Vite](https://img.shields.io/badge/Vite-Build_Tool-646CFF?logo=vite)
+![Groq](https://img.shields.io/badge/Groq-AI-orange)
+![Pytest](https://img.shields.io/badge/Tests-55_Passing-success?logo=pytest)
+![License](https://img.shields.io/badge/License-Hackathon_Project-lightgrey)
 
-The project was developed for **Google Virtual Prompt Wars – Challenge 4: Smart Stadiums & Tournament Operations**.
-
-Avona StadiumAI combines AI-powered navigation, multilingual communication, contextual intelligence, and a modular stadium operations architecture to assist fans and stadium personnel through a unified digital command center.
-
----
-
-## 🎯 Challenge
-
-**Challenge 4: Smart Stadiums & Tournament Operations**
-
-Build a Generative AI-enabled solution that enhances stadium operations and the overall tournament experience for fans, organizers, volunteers, or venue staff.
-
-The solution should leverage Generative AI to improve areas such as:
-
-- Stadium navigation
-- Crowd management
-- Accessibility
-- Transportation
-- Sustainability
-- Multilingual assistance
-- Operational intelligence
-- Real-time decision support
+> **Smarter stadium operations. Safer crowd decisions. Inclusive fan experiences. Powered by Generative AI.**
 
 ---
 
-## 💡 Problem Statement
+## 📖 Overview
 
-Large international sporting events involve thousands of fans from different countries moving through complex stadium environments.
+**Avona StadiumAI** is a Generative AI-enabled smart stadium operations platform designed to demonstrate how artificial intelligence can support safer, more accessible, multilingual, and operationally intelligent stadium experiences.
 
-Fans may experience:
+The platform combines:
 
-- Difficulty finding gates, seating areas, medical centers, or facilities
-- Language barriers when receiving important stadium information
-- Accessibility challenges
-- Confusion during route changes or temporary gate closures
-- Difficulty receiving contextual assistance quickly
+* 🧠 Generative AI
+* 🧭 Graph-based stadium navigation
+* 👥 Crowd intelligence
+* ♿ Need-based accessibility assistance
+* 🌍 Multilingual communication
+* ⚡ Deterministic backend intelligence
+* 📊 Structured verified demo data
+* 🤖 AI-assisted operational decision support
 
-At the same time, stadium personnel need intelligent systems capable of supporting operational decision-making and communicating information efficiently.
-
-Traditional static maps and information systems cannot always provide contextual, natural-language assistance.
-
-**Avona StadiumAI addresses this problem through a modular Generative AI-powered stadium intelligence platform.**
-
----
-
-## 🚀 Solution
-
-Avona StadiumAI provides a centralized **AI-Powered Stadium Command Center** containing specialized intelligence modules.
-
-Instead of functioning as a generic chatbot, the system sends structured stadium context to specialized AI modules.
-
-The AI can consider information such as:
-
-- Selected intelligence module
-- User role
-- Stadium
-- Current location
-- Destination
-- Preferred language
-- User request
-
-This enables more contextual and task-specific responses.
-
-The current prototype includes two fully operational modules:
-
-### 🧭 Navigation Intelligence
-
-Provides AI-assisted stadium navigation using a verified demo route graph.
-
-Users can:
-
-- Select their current location
-- Select a destination
-- Request an intelligent route
-- Receive step-by-step AI-generated navigation guidance
-
-Example:
+Instead of relying entirely on a Large Language Model to generate operational information, Avona StadiumAI follows a **Hybrid Intelligence Architecture**.
 
 ```text
-Main Entrance
-    ↓
-Security Checkpoint
-    ↓
+Structured Verified Demo Data
+            +
+    Deterministic Logic
+            +
+      Generative AI
+            ↓
+Context-Aware Stadium Intelligence
+```
+
+Important operational calculations and factual information are handled by deterministic backend services.
+
+Generative AI is used primarily for:
+
+* Explanation
+* Personalization
+* Contextual guidance
+* Multilingual communication
+* Operational recommendations
+
+This architecture helps reduce AI hallucinations while maintaining the flexibility and natural interaction capabilities of Generative AI.
+
+> ⚠️ **Demo Disclaimer:** Avona StadiumAI is a demonstration and hackathon project. Stadium routes, crowd statistics, facilities, accessibility information, and operational data used by the application are simulated or structured demo data. They do not represent official FIFA World Cup venue information, live stadium sensor data, or official tournament infrastructure.
+
+---
+
+# 📑 Table of Contents
+
+* [🌐 Live Demo](#-live-demo)
+* [🎯 Challenge Vertical](#-challenge-vertical)
+* [💡 Problem Statement](#-problem-statement)
+* [🚀 Our Solution](#-our-solution)
+* [✨ Core Intelligence Modules](#-core-intelligence-modules)
+
+  * [🧭 Navigation Intelligence](#-1-navigation-intelligence)
+  * [👥 Crowd Intelligence](#-2-crowd-intelligence)
+  * [♿ Accessibility Intelligence](#-3-accessibility-intelligence)
+  * [🌍 Multilingual Assistant](#-4-multilingual-assistant)
+* [🧠 Hybrid Intelligence Architecture](#-hybrid-intelligence-architecture)
+* [🏗️ Technical Architecture](#️-technical-architecture)
+* [🛠️ Technology Stack](#️-technology-stack)
+* [📂 Project Structure](#-project-structure)
+* [📸 Screenshots & Demo](#-screenshots--demo)
+* [🧪 Testing Strategy](#-testing-strategy)
+* [🔄 Continuous Integration](#-continuous-integration)
+* [🧹 Code Quality & Maintainability](#-code-quality--maintainability)
+* [⚡ Efficiency](#-efficiency)
+* [🔐 Security & Reliability](#-security--reliability)
+* [♿ Accessibility & Inclusive Design](#-accessibility--inclusive-design)
+* [🤖 Responsible AI Design](#-responsible-ai-design)
+* [🛠️ Local Setup](#️-local-setup)
+* [🧪 Running Tests](#-running-tests)
+* [📡 API Example](#-api-example)
+* [📊 Evaluation-Focused Engineering](#-evaluation-focused-engineering)
+* [🚧 Current Limitations](#-current-limitations)
+* [🔮 Future Roadmap](#-future-roadmap)
+* [🏆 Why Avona StadiumAI?](#-why-avona-stadiumai)
+* [📄 License](#-license)
+* [👨‍💻 Author](#-author)
+
+---
+
+# 🌐 Live Demo
+
+### 🚀 Live Application
+
+**Frontend:**
+`YOUR_VERCEL_DEPLOYMENT_URL`
+
+### 💻 GitHub Repository
+
+`YOUR_GITHUB_REPOSITORY_URL`
+
+> Replace the URLs above with your actual deployment and public GitHub repository links before submission.
+
+---
+
+# 🎯 Challenge Vertical
+
+## Smart Stadiums & Tournament Operations
+
+Avona StadiumAI is designed around the **Smart Stadiums & Tournament Operations** challenge.
+
+Large international sporting events bring together thousands of fans, volunteers, security teams, medical teams, venue staff, and operations personnel.
+
+Managing these environments requires fast access to reliable information and intelligent decision-support systems.
+
+Avona StadiumAI focuses on four major operational areas:
+
+| Intelligence Area          | Purpose                                                   |
+| -------------------------- | --------------------------------------------------------- |
+| 🧭 Navigation              | Help users navigate complex stadium environments          |
+| 👥 Crowd Intelligence      | Identify crowd-density risks and support operations teams |
+| ♿ Accessibility            | Provide need-based inclusive stadium assistance           |
+| 🌍 Multilingual Assistance | Reduce communication barriers for international visitors  |
+
+The objective is to demonstrate how **Generative AI can work alongside deterministic systems and verified contextual data** instead of relying on an LLM to independently generate critical operational information.
+
+---
+
+# 💡 Problem Statement
+
+Large sporting events create highly complex operational environments.
+
+## Fans may need to:
+
+* Navigate unfamiliar stadium environments
+* Locate gates and important facilities
+* Find accessible toilets
+* Request mobility assistance
+* Locate medical support
+* Find accessible seating
+* Receive information in different languages
+* Understand how to reach a destination safely and efficiently
+
+## Operations teams may need to:
+
+* Identify high-density crowd zones
+* Understand congestion risk
+* Make faster crowd-flow decisions
+* Provide consistent information to visitors
+* Respond to changing operational conditions
+* Coordinate support across multiple stadium areas
+
+A generic AI chatbot alone may not be reliable enough for these scenarios.
+
+An LLM could potentially invent:
+
+* Nonexistent stadium routes
+* Incorrect facility locations
+* Unsupported crowd statistics
+* Unverified accessibility infrastructure
+
+Avona StadiumAI addresses this challenge through a grounded hybrid architecture:
+
+```text
+Structured Demo Data
+        ↓
+Deterministic Backend Logic
+        ↓
+Verified Structured Context
+        ↓
+Generative AI
+        ↓
+Human-Friendly Guidance
+```
+
+The AI explains and contextualizes information while deterministic backend services remain responsible for route calculation, crowd-risk classification, and facility lookup.
+
+---
+
+# 🚀 Our Solution
+
+Avona StadiumAI provides a unified AI-powered platform containing four specialized intelligence modules.
+
+```text
+                  Avona StadiumAI
+                         │
+        ┌────────────────┼────────────────┐
+        │                │                │
+        ▼                ▼                ▼
+   Navigation          Crowd        Accessibility
+  Intelligence      Intelligence     Intelligence
+        │                │                │
+        └────────────────┼────────────────┘
+                         │
+                         ▼
+                Multilingual Assistant
+                         │
+                         ▼
+                  Generative AI
+```
+
+Each module focuses on a specific stadium challenge while sharing common backend infrastructure.
+
+Only the selected intelligence module processes a user's request, helping reduce unnecessary AI usage.
+
+---
+
+# ✨ Core Intelligence Modules
+
+## 🧭 1. Navigation Intelligence
+
+Navigation Intelligence provides AI-assisted stadium navigation using a structured demo stadium route graph.
+
+Instead of asking the LLM to invent directions, the backend calculates a verified route first.
+
+The calculated route is then provided to the AI, which transforms it into clear and user-friendly navigation guidance.
+
+### Key Capabilities
+
+* Any-to-any navigation between connected demo stadium locations
+* Graph-based stadium representation
+* Breadth-First Search shortest-path routing
+* Deterministic route calculation
+* AI-generated human-readable guidance
+* Protection against invented routes
+* Safe fallback when no verified route exists
+
+### Example Route
+
+```text
+Gate B
+  ↓
+East Concourse
+  ↓
 Central Plaza
-    ↓
+  ↓
 North Concourse
-    ↓
+  ↓
 Gate A
 ```
 
-The system combines predefined demo stadium routing information with Generative AI to produce clear and user-friendly guidance.
-
-The interface also communicates the availability of accessible routes and encourages users to follow official venue signage and staff instructions.
-
----
-
-### 🌐 Multilingual Assistant
-
-Provides AI-powered multilingual communication for international stadium visitors.
-
-Users can:
-
-- Enter a stadium-related message
-- Select a target language
-- Receive an AI-generated translation
-
-Example:
+### Navigation Workflow
 
 ```text
-Input:
-Gate A is temporarily closed. Please proceed to Gate B.
-
-Target Language:
-Hindi
-
-Output:
-गेट ए अस्थायी रूप से बंद है। कृपया गेट बी की ओर जाएं।
+User Location + Destination
+            ↓
+   Verified Stadium Graph
+            ↓
+ BFS Shortest-Path Algorithm
+            ↓
+      Verified Route
+            ↓
+      Generative AI
+            ↓
+Context-Aware Navigation Guidance
 ```
 
-The module can help communicate information such as:
-
-- Gate changes
-- Navigation instructions
-- Medical assistance information
-- Accessibility guidance
-- General stadium announcements
-
-This demonstrates how Generative AI can help reduce language barriers during international tournaments.
+This approach improves reliability because the LLM does not independently determine which stadium locations are connected.
 
 ---
 
-## 🧠 How Generative AI Is Used
+## 👥 2. Crowd Intelligence
 
-Avona StadiumAI uses a provider-independent AI architecture.
+Crowd Intelligence demonstrates AI-assisted crowd monitoring and operational decision support.
 
-The current implementation uses **Groq-hosted LLM inference**, while the backend architecture separates the application logic from the LLM provider.
+The platform uses simulated crowd occupancy and capacity information for different stadium zones.
 
-The request flow is:
+Crowd density and risk are calculated deterministically before the resulting context is provided to the AI.
+
+### Risk Classification
+
+| Occupancy     | Risk Level  |
+| ------------- | ----------- |
+| Below 50%     | 🟢 Low      |
+| 50% – <70%    | 🟡 Moderate |
+| 70% – <85%    | 🟠 High     |
+| 85% and above | 🔴 Critical |
+
+### Example
 
 ```text
-User
-  ↓
-React Frontend
-  ↓
-Structured Context
-  ↓
+Zone: North Concourse
+
+Occupancy: 1700
+Capacity: 2000
+
+1700 / 2000 × 100
+        ↓
+       85%
+        ↓
+Risk Level: Critical
+        ↓
+AI-Assisted Operational Recommendation
+```
+
+### Key Capabilities
+
+* Simulated stadium crowd data
+* Deterministic density calculations
+* Rule-based risk classification
+* AI-assisted operational recommendations
+* Congestion awareness
+* Crowd-flow decision support
+* Transparent demo-data disclosure
+
+### Crowd Intelligence Workflow
+
+```text
+Simulated Crowd Data
+        ↓
+Density Calculation
+        ↓
+Deterministic Risk Classification
+        ↓
+Structured Operational Context
+        ↓
+Generative AI
+        ↓
+Operational Recommendation
+```
+
+The AI does not invent occupancy values or independently determine the underlying crowd-risk classification.
+
+---
+
+## ♿ 3. Accessibility Intelligence
+
+Accessibility Intelligence provides **Need-Based Inclusive Assistance**.
+
+Unlike standard navigation, where users must already know their destination, Accessibility Intelligence allows fans to describe the type of assistance they require.
+
+The platform identifies an appropriate verified demo facility or assistance point and calculates a route from the user's current location.
+
+### Supported Assistance Categories
+
+* ♿ Wheelchair Access
+* 🚻 Accessible Toilet
+* 💺 Accessible Seating
+* 🏥 Medical Assistance
+* 👁️ Visual Assistance
+* 👂 Hearing Assistance
+* 🚶 Reduced Mobility
+
+### Example Workflow
+
+```text
+User Need
+"Accessible Toilet"
+        ↓
+Verified Demo Facility Lookup
+        ↓
+Central Plaza Accessible Restroom
+        ↓
+Graph-Based Route Calculation
+        ↓
+Gate A
+→ North Concourse
+→ Central Plaza
+        ↓
+Accessibility Context
+        ↓
+AI-Personalized Inclusive Guidance
+```
+
+### Key Capabilities
+
+* Need-based accessibility assistance
+* Accessible facility lookup
+* Accessible toilet guidance
+* Accessible seating support
+* Wheelchair and mobility assistance
+* Medical assistance guidance
+* Visual navigation assistance
+* Hearing assistance guidance
+* Reduced-mobility support
+* Shared graph-routing infrastructure
+* AI-assisted inclusive communication
+
+The Accessibility module reuses the same deterministic `NavigationService` used by Navigation Intelligence.
+
+This avoids duplicated routing logic and improves maintainability.
+
+> ⚠️ Accessibility guidance is AI-assisted and based on verified demo facility and route data. For urgent or safety-critical situations, users should contact authorized stadium personnel.
+
+---
+
+## 🌍 4. Multilingual Assistant
+
+The Multilingual Assistant helps reduce communication barriers in diverse international stadium environments.
+
+Users can provide a stadium-related message and request assistance in a target language.
+
+### Key Capabilities
+
+* AI-powered multilingual communication
+* Context-aware stadium messaging
+* Support for international fan experiences
+* Shared AI provider architecture
+* Consistent AI service integration
+
+The module demonstrates how AI-powered multilingual communication can make stadium experiences more inclusive and accessible for international visitors.
+
+---
+
+# 🧠 Hybrid Intelligence Architecture
+
+A core design principle behind Avona StadiumAI is:
+
+> **Use deterministic software for facts and calculations. Use Generative AI for explanation, contextualization, personalization, and decision support.**
+
+```text
+                       User Request
+                            │
+                            ▼
+                       FastAPI API
+                            │
+                            ▼
+                         AIService
+                            │
+          ┌─────────────────┼─────────────────┐
+          │                 │                 │
+          ▼                 ▼                 ▼
+     Navigation           Crowd        Accessibility
+      Service            Service          Service
+          │                 │                 │
+          ▼                 ▼                 ▼
+    Graph Routing       Risk Logic      Facility Lookup
+          │                 │                 │
+          └─────────────────┼─────────────────┘
+                            │
+                            ▼
+                   Structured Context
+                            │
+                            ▼
+                  AI Intelligence Agent
+                            │
+                            ▼
+                    LLM Provider Layer
+                            │
+                            ▼
+                           Groq
+                            │
+                            ▼
+                  Context-Aware Response
+```
+
+This architecture helps reduce hallucination risk and keeps important operational calculations outside the language model.
+
+---
+
+# 🏗️ Technical Architecture
+
+The application follows a modular architecture with clearly separated responsibilities.
+
+```text
+Frontend
+   │
+   │ HTTP API Request
+   ▼
 FastAPI Backend
-  ↓
+   │
+   ▼
 AI Service
-  ↓
-Intelligence Module
-  ↓
-Prompt Construction
-  ↓
-LLM Provider Layer
-  ↓
+   │
+   ├── Navigation Agent
+   ├── Crowd Agent
+   ├── Accessibility Agent
+   └── Multilingual Agent
+          │
+          ▼
+Deterministic Services
+          │
+          ├── Navigation Service
+          ├── Crowd Service
+          └── Accessibility Service
+          │
+          ▼
+Structured Demo Data
+          │
+          ▼
+Verified Context
+          │
+          ▼
+LLM Provider Abstraction
+          │
+          ▼
 Groq
-  ↓
-Generated Response
-  ↓
-Frontend Intelligence Panel
-```
-
-The AI does not receive only a generic user message.
-
-The backend can provide contextual information including:
-
-```text
-Module
-User Role
-Language
-Stadium
-Current Location
-Destination
-User Prompt
-```
-
-Specialized prompts and modules then guide the model toward the required stadium task.
-
-This architecture makes the application modular and allows additional intelligence capabilities to be added without redesigning the entire system.
-
----
-
-## 🏗️ Architecture
-
-```text
-                    AVONA STADIUMAI
-
-                         User
-                           │
-                           ▼
-                 React + TypeScript
-                    Vite Frontend
-                           │
-                           ▼
-                    REST API Request
-                           │
-                           ▼
-                     FastAPI Backend
-                           │
-                           ▼
-                       AI Service
-                           │
-                 ┌─────────┴─────────┐
-                 ▼                   ▼
-        Navigation Module    Multilingual Module
-                 │                   │
-                 └─────────┬─────────┘
-                           ▼
-                    Prompt Layer
-                           │
-                           ▼
-                  Provider Factory
-                           │
-                           ▼
-                    Groq Provider
-                           │
-                           ▼
-                         LLM
-                           │
-                           ▼
-                 Contextual AI Output
 ```
 
 ---
 
-## 🛠️ Technologies Used
+# 🛠️ Technology Stack
 
-### Frontend
+## Frontend
 
-- React
-- TypeScript
-- Vite
-- CSS
-- Responsive UI architecture
+* React
+* TypeScript
+* Vite
+* Responsive component-based interface
+* Environment-based backend configuration
 
-### Backend
+## Backend
 
-- Python
-- FastAPI
-- Uvicorn
-- Pydantic
+* Python 3.11+
+* FastAPI
+* Pydantic
+* Modular service architecture
+* Agent-based AI architecture
 
-### Generative AI
+## Artificial Intelligence
 
-- Groq API
-- LLM-based response generation
-- Specialized AI prompts
-- Provider-independent LLM architecture
+* Groq API
+* Llama 3.3 70B Versatile
+* Provider abstraction through `BaseProvider`
+* Provider creation through `ProviderFactory`
 
-### Deployment
+## Testing
 
-- Vercel — Frontend deployment
-- Railway — FastAPI backend deployment
+* Pytest
+* FastAPI TestClient
+* Mock/Fake LLM providers
+* Unit tests
+* Service tests
+* API integration tests
+* Error-handling tests
 
-### Development & Version Control
+## CI/CD
 
-- Git
-- GitHub
-- Visual Studio Code
+* GitHub Actions
+* Automated backend testing
+* Vercel frontend deployment
+* Railway backend deployment
 
 ---
 
-## 📁 Project Structure
+# 📂 Project Structure
 
 ```text
 avona-stadium-ai/
 │
 ├── backend/
 │   ├── app/
+│   │   │
 │   │   ├── agents/
-│   │   │   ├── multilingual.py
 │   │   │   ├── navigation.py
-│   │   │   └── router.py
+│   │   │   ├── crowd.py
+│   │   │   ├── accessibility.py
+│   │   │   └── multilingual.py
 │   │   │
 │   │   ├── api/
 │   │   │   └── routes/
@@ -290,217 +564,492 @@ avona-stadium-ai/
 │   │   │   └── stadium_data.py
 │   │   │
 │   │   ├── prompts/
-│   │   │   ├── multilingual.py
-│   │   │   └── navigation.py
+│   │   │   ├── navigation.py
+│   │   │   ├── crowd.py
+│   │   │   ├── accessibility.py
+│   │   │   └── multilingual.py
 │   │   │
 │   │   ├── schemas/
 │   │   │   └── ai.py
 │   │   │
 │   │   ├── services/
-│   │   │   ├── llm/
-│   │   │   │   ├── base_provider.py
-│   │   │   │   ├── groq_provider.py
-│   │   │   │   └── provider_factory.py
+│   │   │   ├── navigation_service.py
+│   │   │   ├── crowd_service.py
+│   │   │   ├── accessibility_service.py
 │   │   │   ├── ai_service.py
-│   │   │   └── navigation_service.py
+│   │   │   └── llm/
+│   │   │       ├── base_provider.py
+│   │   │       ├── provider_factory.py
+│   │   │       └── groq_provider.py
 │   │   │
 │   │   └── main.py
 │   │
-│   ├── .env.example
-│   └── requirements.txt
+│   └── tests/
+│       ├── test_health.py
+│       ├── test_ai_api.py
+│       ├── test_navigation.py
+│       ├── test_navigation_service.py
+│       ├── test_crowd.py
+│       ├── test_accessibility_service.py
+│       ├── test_multilingual.py
+│       ├── test_groq_provider.py
+│       ├── test_provider_factory.py
+│       └── test_config.py
 │
 ├── frontend/
-│   ├── src/
-│   │   ├── api/
-│   │   ├── assets/
-│   │   ├── components/
-│   │   ├── context/
-│   │   ├── pages/
-│   │   ├── styles/
-│   │   └── types/
-│   │
-│   └── package.json
+│   └── ...
+│
+├── .github/
+│   └── workflows/
+│       └── ...
 │
 ├── .gitignore
-├── LICENSE
-└── README.md
+├── README.md
+└── ...
 ```
 
 ---
 
-## 🔄 How the System Works
+# 📸 Screenshots & Demo
 
-### Navigation Request
+> Add screenshots of your deployed application here before final submission.
 
-A fan selects:
+## 🏠 Welcome Screen
 
 ```text
-Current Location: Main Entrance
-Destination: Gate A
+Add screenshot here
 ```
 
-The frontend sends structured context to:
+## 👤 Role Selection
 
 ```text
-POST /api/ai/generate
+Add screenshot here
 ```
 
-Example request:
+## 🧭 Navigation Intelligence
 
-```json
-{
-  "module": "navigation",
-  "user_role": "fan",
-  "language": "English",
-  "stadium": "Demo World Cup Stadium",
-  "location": "Main Entrance",
-  "destination": "Gate A",
-  "prompt": "Give me directions to Gate A."
-}
+```text
+Add screenshot here
 ```
 
-The Navigation Intelligence module validates and processes the route context.
+## 👥 Crowd Intelligence
 
-The AI then generates clear natural-language guidance based on the available demo stadium route information.
+```text
+Add screenshot here
+```
+
+## ♿ Accessibility Intelligence
+
+```text
+Add screenshot here
+```
+
+## 🌍 Multilingual Assistant
+
+```text
+Add screenshot here
+```
+
+### Example Markdown for Screenshots
+
+```markdown
+![Avona StadiumAI Welcome Screen](screenshots/welcome-screen.png)
+```
+
+For repository screenshots, you can create:
+
+```text
+screenshots/
+├── welcome-screen.png
+├── role-selection.png
+├── navigation.png
+├── crowd-intelligence.png
+├── accessibility.png
+└── multilingual.png
+```
 
 ---
 
-### Multilingual Request
+# 🧪 Testing Strategy
 
-A user enters a stadium message and selects a target language.
+Testing was treated as a core engineering requirement during the development of Avona StadiumAI.
 
-Example:
+## ✅ 55 Automated Tests
 
-```json
-{
-  "module": "multilingual",
-  "user_role": "fan",
-  "language": "Spanish",
-  "stadium": "Demo World Cup Stadium",
-  "location": "Main Entrance",
-  "destination": "Medical Center",
-  "prompt": "Where is the nearest medical center?"
-}
+Latest local test result:
+
+```text
+55 passed
 ```
 
-The Multilingual Intelligence module instructs the LLM to return the requested translation.
+The test suite validates multiple layers of the application.
+
+### 1️⃣ Input Validation
+
+Tests verify:
+
+* Missing required fields
+* Whitespace-only input
+* Unsupported intelligence modules
+* Excessively long prompts
+* Optional accessibility fields
+
+### 2️⃣ API Layer
+
+Tests verify:
+
+* FastAPI endpoints
+* Successful module requests
+* Correct HTTP status codes
+* API response structure
+* Accessibility API integration
+
+### 3️⃣ Navigation Intelligence
+
+Tests verify:
+
+* Verified route generation
+* Any-to-any graph routing
+* Routes between stadium gates
+* Same-location routing
+* Unknown stadium handling
+* Unknown location handling
+* Unknown destination handling
+* Missing location/destination handling
+
+### 4️⃣ BFS Routing Engine
+
+Dedicated tests validate graph-based routes including:
+
+```text
+Main Entrance → Gate A
+
+Gate B → Gate A
+
+Gate A → Central Plaza
+```
+
+Invalid and edge-case requests are also tested.
+
+### 5️⃣ Crowd Intelligence
+
+Tests verify:
+
+* Occupancy data retrieval
+* Density calculations
+* Risk classification
+* Unknown zones
+* Unknown stadiums
+* AI context generation
+
+### 6️⃣ Accessibility Intelligence
+
+Tests verify:
+
+* Accessible toilet lookup
+* Accessible seating lookup
+* Medical assistance lookup
+* Wheelchair assistance
+* Routes from multiple current locations
+* Invalid assistance types
+* Missing accessibility parameters
+
+### 7️⃣ Multilingual Intelligence
+
+Tests verify:
+
+* Target-language context
+* Message context
+* User context
+* Provider responses
+
+### 8️⃣ AI Provider Layer
+
+Tests verify:
+
+* Provider factory behavior
+* Provider configuration
+* Missing API key handling
+* Unsupported provider handling
+* Provider failure handling
+
+### 9️⃣ External AI Isolation
+
+Automated tests use fake or mock AI providers where appropriate.
+
+Therefore, the automated test suite does not depend on:
+
+* Live Groq availability
+* Network connectivity
+* API credits
+* Non-deterministic LLM responses
+
+This improves both testing reliability and execution speed.
 
 ---
 
-## 🔐 Security
+# 🔄 Continuous Integration
 
-The project follows basic security practices suitable for the prototype:
+Avona StadiumAI uses GitHub Actions for automated backend validation.
 
-- API keys are stored using environment variables
-- `.env` files are excluded from Git
-- `.env.example` is provided for configuration guidance
-- Secrets are not stored in the public repository
-- Backend and frontend are deployed separately
-- CORS restricts browser access to approved frontend origins
-- Unsupported intelligence modules are rejected by the backend
+```text
+Code Push
+    ↓
+GitHub Actions
+    ↓
+Install Backend Dependencies
+    ↓
+Run Pytest
+    ↓
+55 Automated Tests
+    ↓
+Pass / Fail
+```
 
-Production deployments should implement additional security controls such as authentication, authorization, rate limiting, monitoring, and stronger request validation.
+This helps detect regressions before new changes are considered stable.
 
 ---
 
-## ⚡ Efficiency
+# 🧹 Code Quality & Maintainability
 
-The architecture is designed to avoid unnecessary AI requests.
+The project architecture separates different responsibilities.
 
-Only the selected intelligence module processes the user's request.
+## Agent Layer
+
+Responsible for constructing intelligence-specific AI context.
+
+## Service Layer
+
+Responsible for deterministic business logic.
+
+Examples:
+
+```text
+NavigationService
+      ↓
+BFS Route Calculation
+
+CrowdService
+      ↓
+Crowd Density + Risk Calculation
+
+AccessibilityService
+      ↓
+Accessibility Facility Lookup
+```
+
+## Provider Layer
+
+Responsible for communication with the configured LLM provider.
+
+## Schema Layer
+
+Responsible for API request validation and normalization.
+
+## Data Layer
+
+Contains structured demo stadium information.
+
+## Prompt Layer
+
+Keeps module-specific AI instructions separate from application business logic.
+
+This separation improves:
+
+* Readability
+* Maintainability
+* Testability
+* Extensibility
+* Debugging
+
+---
+
+# ⚡ Efficiency
+
+Avona StadiumAI uses multiple strategies to reduce unnecessary computation and AI usage.
+
+## Deterministic Processing Before LLM Calls
+
+The LLM is not used for calculations that can be performed reliably in code.
 
 For example:
 
-```text
-Navigation selected
-        ↓
-Only Navigation Intelligence runs
-        ↓
-One relevant LLM request
-```
+* Routes are calculated using BFS
+* Crowd density is calculated mathematically
+* Crowd risk is classified using deterministic thresholds
+* Accessibility facilities are selected from structured data
 
-This modular approach reduces unnecessary model calls and makes future optimization easier.
+The LLM receives already-processed context and focuses on generating useful human-readable guidance.
 
-The application also uses a provider abstraction layer, allowing the underlying LLM provider to be changed without rewriting the core application architecture.
+## Shared Services
 
----
+Accessibility Intelligence reuses `NavigationService` rather than implementing another routing engine.
 
-## ♿ Accessibility
+This reduces:
 
-The interface is designed with accessibility considerations including:
+* Code duplication
+* Maintenance complexity
+* Inconsistent routing behavior
 
-- Semantic interface structure
-- Responsive layouts
-- Clear visual hierarchy
-- Readable typography
-- High-contrast interface elements
-- Keyboard-friendly native controls
-- Clearly labeled form elements
+## Modular AI Invocation
 
-The Navigation Intelligence experience also communicates the availability of accessible route assistance.
+Only the intelligence module selected by the user processes the request.
 
-Further accessibility improvements are included in the future roadmap.
+The architecture avoids unnecessarily invoking multiple AI agents for a single task.
 
 ---
 
-## 🧪 API Testing
+# 🔐 Security & Reliability
 
-FastAPI provides interactive API documentation through Swagger UI.
+Avona StadiumAI includes several security and reliability practices.
 
-After running the backend locally, visit:
+## 🔑 Environment Variables
+
+Sensitive configuration, including the Groq API key, is loaded through environment variables.
+
+API secrets should never be hardcoded into source code or committed to GitHub.
+
+## ✅ Input Validation
+
+Pydantic validates:
+
+* Required fields
+* Minimum lengths
+* Maximum lengths
+* Optional fields
+* Whitespace-only values
+
+## 🛡️ Safe Error Handling
+
+Unexpected AI provider failures return controlled API errors rather than exposing internal exception details.
+
+Example:
 
 ```text
-http://127.0.0.1:8000/docs
+AI service is temporarily unavailable.
+Please try again later.
 ```
 
-The main AI endpoint can be tested directly:
+Internal provider exceptions are not returned directly to users.
 
-```text
-POST /api/ai/generate
-```
+## 🌐 CORS Restrictions
 
-The API handles supported intelligence modules and rejects unsupported module requests.
+The backend explicitly allows configured frontend origins instead of using unrestricted wildcard access.
 
-Example unsupported module:
+## 🤖 AI Safety Boundaries
 
-```json
-{
-  "module": "random",
-  "user_role": "fan",
-  "language": "English",
-  "stadium": "Demo World Cup Stadium",
-  "location": "Main Entrance",
-  "destination": "Gate A",
-  "prompt": "Help me"
-}
-```
+Agents are instructed not to invent:
 
-The backend returns an error instead of processing an unsupported intelligence module.
+* Stadium routes
+* Crowd statistics
+* Accessibility facilities
+* Operational infrastructure
+
+When verified demo data is unavailable, the system provides a safe fallback rather than fabricating operational information.
 
 ---
 
-## 💻 Local Setup
+# ♿ Accessibility & Inclusive Design
 
-### 1. Clone the repository
+Accessibility is addressed at both the product and interface level.
+
+Accessibility Intelligence supports:
+
+* Wheelchair assistance
+* Accessible toilets
+* Accessible seating
+* Medical support
+* Visual assistance
+* Hearing assistance
+* Reduced mobility
+
+The frontend also aims to follow practical accessibility principles:
+
+* Semantic controls
+* Keyboard-accessible interactions
+* Visible selection states
+* Readable contrast
+* Responsive layouts
+* Clear form labels
+* User-friendly status messaging
+
+AI accessibility recommendations are presented as assistance and decision support, not as a replacement for authorized venue personnel.
+
+---
+
+# 🤖 Responsible AI Design
+
+Avona StadiumAI follows a **human-in-the-loop philosophy**.
+
+The platform is designed around three core principles.
+
+## 1️⃣ AI Should Not Invent Operational Facts
+
+Routes, crowd data, and facilities originate from structured demo data.
+
+## 2️⃣ Deterministic Systems Should Handle Deterministic Problems
+
+Algorithms and backend services handle:
+
+* Routing
+* Calculations
+* Risk classifications
+* Facility lookup
+
+## 3️⃣ AI Should Assist Humans, Not Replace Operational Authority
+
+AI-generated recommendations are decision-support guidance.
+
+Final safety-critical decisions remain with authorized stadium personnel.
+
+---
+
+# 🛠️ Local Setup
+
+## Prerequisites
+
+Install:
+
+* Python 3.11+
+* Node.js
+* npm
+* Git
+
+---
+
+## 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/jayeshpatil2122/avona-stadium-ai
+git clone YOUR_REPOSITORY_URL
 cd avona-stadium-ai
 ```
 
-### 2. Backend Setup
+---
+
+## 2️⃣ Backend Setup
+
+Navigate to the backend:
 
 ```bash
 cd backend
+```
+
+Create a virtual environment:
+
+```bash
 python -m venv venv
 ```
 
-Activate the virtual environment.
+### Activate on Windows PowerShell
 
-Windows:
+```powershell
+.\venv\Scripts\Activate.ps1
+```
 
-```bash
-venv\Scripts\activate
+### Activate on Windows Command Prompt
+
+```cmd
+venv\Scripts\activate.bat
 ```
 
 Install dependencies:
@@ -509,155 +1058,292 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-Create a `.env` file based on:
+Create a `.env` file using `.env.example`.
 
-```text
-.env.example
-```
-
-Configure the required environment variables:
+Example:
 
 ```env
 APP_NAME=Avona StadiumAI
 APP_VERSION=1.0.0
 LLM_PROVIDER=groq
-GROQ_API_KEY=your_groq_api_key
+GROQ_API_KEY=your_groq_api_key_here
 ```
 
-Run the backend:
+Start the backend:
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-Backend:
+The backend will run locally.
 
-```text
-http://127.0.0.1:8000
-```
-
-Swagger API documentation:
+API documentation can be accessed at:
 
 ```text
 http://127.0.0.1:8000/docs
 ```
 
-### 3. Frontend Setup
+---
 
-Open another terminal:
+## 3️⃣ Frontend Setup
+
+Open another terminal and navigate to the frontend:
 
 ```bash
 cd frontend
+```
+
+Install dependencies:
+
+```bash
 npm install
+```
+
+Configure the frontend environment variable:
+
+```env
+VITE_API_URL=http://127.0.0.1:8000
+```
+
+Start the frontend:
+
+```bash
 npm run dev
 ```
 
-The Vite development server will provide the local frontend URL.
-
 ---
 
-## 🚀 Deployment
+# 🧪 Running Tests
 
-### Backend
+Navigate to the backend directory:
 
-The FastAPI backend is deployed using Railway.
-
-Required environment variables are configured securely through the deployment platform.
-
-The production server uses Uvicorn to run the FastAPI application.
-
-### Frontend
-
-The React + Vite frontend is deployed using Vercel.
-
-The frontend uses:
-
-```env
-VITE_API_URL=<backend-production-url>
+```bash
+cd backend
 ```
 
-to communicate with the deployed FastAPI backend.
+Run:
 
-The production frontend origin must also be included in the backend CORS configuration.
+```bash
+pytest -v
+```
 
----
+Expected result:
 
-## 📊 Current Intelligence Modules
+```text
+55 passed
+```
 
-| Module | Status | Purpose |
-|---|---|---|
-| Navigation Intelligence | ✅ Operational | Context-aware stadium route guidance |
-| Multilingual Assistant | ✅ Operational | AI-powered multilingual communication |
-| Crowd Intelligence | 🚧 Planned | Crowd condition insights and recommendations |
-| Operations Intelligence | 🚧 Planned | AI-assisted operational decision support |
-| Accessibility Intelligence | 🚧 Planned | Personalized accessibility assistance |
+The automated tests use mocked or fake AI providers where appropriate.
 
-The interface intentionally distinguishes operational modules from planned capabilities.
+A live Groq API call is therefore not required for deterministic test execution.
 
 ---
 
-## ⚠️ Assumptions
+# 📡 API Example
 
-This project is a functional hackathon prototype and is not connected to official FIFA or stadium infrastructure.
+## Endpoint
 
-The following assumptions are made:
+```text
+POST /api/ai/generate
+```
 
-- Stadium route information uses a simulated demo stadium
-- The route graph is demonstration data
-- Crowd and operational intelligence modules shown as planned are not presented as live systems
-- AI responses should complement, not replace, official venue instructions
-- Users should follow official stadium signage and staff guidance
-- Emergency situations should always follow instructions from authorized venue personnel
+## Example Accessibility Request
 
----
+```json
+{
+  "module": "accessibility",
+  "user_role": "fan",
+  "language": "English",
+  "stadium": "Demo World Cup Stadium",
+  "location": "Gate B",
+  "destination": null,
+  "assistance_type": "accessible_seating",
+  "prompt": "I need accessible seating assistance."
+}
+```
 
-## 🔮 Future Scope
+## Example Response Structure
 
-Avona StadiumAI is designed as a modular platform that can be expanded with additional intelligence modules.
-
-Future capabilities may include:
-
-- Real-time crowd density intelligence
-- AI-powered crowd redirection recommendations
-- Operational command center insights
-- Personalized accessibility routing
-- Wheelchair-friendly route recommendations
-- Real-time transportation assistance
-- Sustainable transportation recommendations
-- Emergency communication assistance
-- Volunteer and venue staff copilots
-- Live stadium data integrations
-- Event and match scheduling integrations
-- Real-time alerts
-- Additional language support
-- Voice-based multilingual assistance
-
-With access to authorized real-world stadium systems, the architecture could integrate live operational data while maintaining clear separation between verified data and AI-generated recommendations.
+```json
+{
+  "module": "accessibility",
+  "response": "AI-generated accessibility guidance"
+}
+```
 
 ---
 
-## 🌍 Impact
+# 📊 Evaluation-Focused Engineering
 
-Avona StadiumAI demonstrates how Generative AI can move beyond a traditional chatbot and become part of a broader stadium intelligence platform.
+Avona StadiumAI was iteratively strengthened with a focus on engineering quality, responsible AI, and evaluation readiness.
 
-By combining:
+## 🧪 Testing
 
-**Navigation Intelligence + Multilingual Assistance + Context-Aware AI + Modular Architecture**
+Improved through:
 
-the project aims to create a safer, more accessible, and more intuitive stadium experience for international sporting events.
+* 55 automated backend tests
+* Service-level testing
+* API integration testing
+* Input-validation testing
+* Provider-failure testing
+* Graph-routing tests
+* Accessibility tests
+* Mocked LLM providers
+* CI-based automated test execution
+
+## 🧹 Code Quality
+
+Improved through:
+
+* Modular agent architecture
+* Dedicated service layer
+* Shared routing infrastructure
+* Separate prompt modules
+* Provider abstraction
+* Pydantic schemas
+* Reduced duplicated logic
+
+## ⚡ Efficiency
+
+Improved through:
+
+* BFS shortest-path routing
+* Deterministic crowd calculations
+* Rule-based risk classification
+* Structured accessibility lookup
+* Selective AI module execution
+* LLM usage only after deterministic processing
+
+## 🔐 Security & Reliability
+
+Improved through:
+
+* Environment-based secret management
+* Input validation
+* Safe provider-error handling
+* Controlled CORS configuration
+* AI hallucination boundaries
+* Safe fallback behavior
+
+## ♿ Accessibility
+
+Improved through:
+
+* Dedicated Need-Based Inclusive Assistance
+* Seven accessibility assistance categories
+* Multi-location facility routing
+* Shared graph navigation
+* Accessible frontend interaction patterns
+* Human-in-the-loop safety messaging
+
+## 🎯 Problem Statement Alignment
+
+The platform focuses directly on practical smart stadium challenges:
+
+* Stadium navigation
+* Crowd management
+* Operational decision support
+* Accessibility
+* Multilingual communication
+
+Rather than implementing disconnected AI demonstrations, all four intelligence modules operate within one shared stadium operations platform.
 
 ---
 
-## 🏆 Built For
+# 🚧 Current Limitations
 
-**Google Virtual Prompt Wars**
+Avona StadiumAI is a hackathon demonstration and currently has several intentional limitations.
 
-**Challenge 4 — Smart Stadiums & Tournament Operations**
+* Stadium data is simulated
+* Crowd information is not connected to live IoT sensors
+* Accessibility facilities are demo facilities
+* The route graph represents a fictional demo stadium
+* The system is not connected to official FIFA infrastructure
+* AI recommendations should not be treated as authoritative safety instructions
+* Accessibility facility selection currently uses predefined verified demo facilities instead of real-time geographic proximity
+* Production stadium deployment would require integration with official venue systems, sensor infrastructure, emergency protocols, and validated accessibility information
 
-Focused on demonstrating practical and meaningful applications of Generative AI for next-generation stadium experiences.
+These limitations are intentionally documented to ensure transparent and responsible demonstration of the technology.
 
 ---
 
-## 📜 License
+# 🔮 Future Roadmap
 
-This project is provided under the license included in the repository.
+Potential future extensions include:
+
+* 📡 Real-time IoT crowd sensors
+* 📷 Computer-vision crowd-density estimation
+* 🧭 Dynamic route weighting based on congestion
+* 🚨 Emergency evacuation integration with official safety systems
+* ♿ Real-time accessible-route availability
+* 📍 Nearest accessible-facility graph search
+* 🎙️ Voice-based multilingual assistance
+* 🚌 Live transportation integration
+* 🌱 Sustainability intelligence
+* 👷 Volunteer and staff operations dashboards
+* 🏟️ Event-specific stadium digital twins
+
+---
+
+# 🏆 Why Avona StadiumAI?
+
+Avona StadiumAI demonstrates how Generative AI can become more useful and reliable when combined with deterministic software systems.
+
+Instead of creating a chatbot that attempts to answer every question using only the LLM's knowledge, Avona StadiumAI follows a grounded architecture:
+
+```text
+        Verified Demo Data
+                +
+       Deterministic Logic
+                +
+         Generative AI
+                ↓
+Context-Aware Stadium Intelligence
+```
+
+This allows deterministic systems to handle tasks they perform reliably while Generative AI focuses on tasks where natural-language intelligence provides the most value.
+
+The result is a modular platform designed around:
+
+* 🏟️ Practical stadium operations
+* 🧭 Reliable navigation
+* 👥 Intelligent crowd decision support
+* ♿ Inclusive fan experiences
+* 🌍 Multilingual communication
+* 🧹 Maintainable software engineering
+* 🔐 Secure development practices
+* 🤖 Responsible AI usage
+
+**Avona StadiumAI represents a vision for smarter stadium environments where AI assists people with the right information, at the right time, while keeping critical operational facts grounded in verified systems.**
+
+---
+
+# 📄 License
+
+This project was created as a demonstration and hackathon project.
+
+Please refer to the repository's license file if one is provided.
+
+---
+
+# 👨‍💻 Author
+
+**Developed by Jayesh Patil**
+
+**Project:** Avona StadiumAI
+
+**Challenge:** Smart Stadiums & Tournament Operations
+
+---
+
+
+
+### 🏟️ Avona StadiumAI
+
+**AI-Powered Stadium Operations & Inclusive Fan Assistance**
+
+*Building smarter, safer, and more inclusive stadium experiences with Generative AI.*
+
+⭐ If you find this project interesting, consider giving the repository a star!
+
+
