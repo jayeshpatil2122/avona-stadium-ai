@@ -6,7 +6,11 @@ class ProviderFactory:
 
     @staticmethod
     def get_provider():
-        if settings.LLM_PROVIDER == "groq" or not settings.LLM_PROVIDER:
+        provider_name = (settings.LLM_PROVIDER or "groq").lower().strip()
+
+        if provider_name == "groq":
             return GroqProvider()
 
-        return GroqProvider()
+        raise ValueError(
+            f"Unsupported LLM provider configuration: {provider_name}"
+        )

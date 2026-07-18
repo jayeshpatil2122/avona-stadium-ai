@@ -14,6 +14,10 @@ class FakeProvider(BaseProvider):
     def generate(self, prompt: str) -> str:
         return "Mock AI response"
 
+class FailingProvider(BaseProvider):
+    def generate(self, prompt: str) -> str:
+        raise RuntimeError("Simulated provider failure")
+
 
 def test_generate_rejects_missing_required_fields():
     response = client.post(
@@ -106,6 +110,127 @@ def test_multilingual_api_with_fake_provider():
 
         assert data["module"] == "multilingual"
         assert data["response"] == "Mock AI response"
+
+    finally:
+        service.modules["multilingual"] = original_multilingual
+
+def test_generate_rejects_whitespace_only_prompt():
+    response = client.post(
+        "/api/ai/generate",
+        json={
+            "module": "navigation",
+            "user_role": "fan",
+            "language": "English",
+            "stadium": "Demo World Cup Stadium",
+            "location": "Main Entrance",
+            "destination": "Gate A",
+            "prompt": "   "
+        }
+    )
+
+    assert response.status_code == 422
+
+
+def test_generate_rejects_whitespace_only_module():
+    response = client.post(
+        "/api/ai/generate",
+        json={
+            "module": "   ",
+            "user_role": "fan",
+            "language": "English",
+            "stadium": "Demo World Cup Stadium",
+            "location": "Main Entrance",
+            "destination": "Gate A",
+            "prompt": "Guide me to Gate A."
+        }
+    )
+
+    assert response.status_code == 422
+
+
+def test_generate_rejects_overly_long_prompt():
+    response = client.post(
+        "/api/ai/generate",
+        json={
+            "module": "navigation",
+            "user_role": "fan",
+            "language": "English",
+            "stadium": "Demo World Cup Stadium",
+            "location": "Main Entrance",
+            "destination": "Gate A",
+            "prompt": "A" * 1001
+        }
+    )
+
+    assert response.status_code == 422
+
+def test_navigation_api_handles_provider_failure():
+    failing_provider = FailingProvider()
+
+    original_navigation = service.modules["navigation"]
+
+    try:
+        service.modules["navigation"] = NavigationIntelligence(failing_provider)
+
+        response = client.post(
+            "/api/ai/generate",
+            json={
+                "module": "navigation",
+                "user_role": "fan",
+                "language": "English",
+                "stadium": "Demo World Cup Stadium",
+                "location": "Main Entrance",
+                "destination": "Gate A",
+                "prompt": "Give me directions to Gate A."
+            }
+        )
+
+        assert response.status_code == 503
+
+        data = response.json()
+
+        assert data["detail"] == (
+            "AI service is temporarily unavailable. "
+            "Please try again later."
+        )
+
+        assert "Simulated provider failure" not in response.text
+
+    finally:
+        service.modules["navigation"] = original_navigation
+def test_multilingual_api_handles_provider_failure():
+    failing_provider = FailingProvider()
+
+    original_multilingual = service.modules["multilingual"]
+
+    try:
+        service.modules["multilingual"] = MultilingualIntelligence(
+            failing_provider
+        )
+
+        response = client.post(
+            "/api/ai/generate",
+            json={
+                "module": "multilingual",
+                "user_role": "fan",
+                "language": "Spanish",
+                "stadium": "Demo World Cup Stadium",
+                "location": "Main Entrance",
+                "destination": "Gate A",
+                "prompt": "Where is the medical center?"
+            }
+        )
+
+        assert response.status_code == 503
+
+        data = response.json()
+
+        assert data["detail"] == (
+            "AI service is temporarily unavailable. "
+            "Please try again later."
+        )
+
+        assert "Simulated provider failure" not in response.text
 
     finally:
         service.modules["multilingual"] = original_multilingual

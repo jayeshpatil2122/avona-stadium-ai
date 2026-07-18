@@ -1,9 +1,13 @@
 from fastapi import HTTPException
+import logging
 
+from app.agents.multilingual import MultilingualIntelligence
 from app.agents.navigation import NavigationIntelligence
 from app.schemas.ai import AIRequest
 from app.services.llm.provider_factory import ProviderFactory
-from app.agents.multilingual import MultilingualIntelligence
+
+logger = logging.getLogger(__name__)
+
 
 class AIService:
 
@@ -14,10 +18,10 @@ class AIService:
             "navigation": NavigationIntelligence(self.provider),
             "multilingual": MultilingualIntelligence(self.provider),
         }
+
     def process(self, data: AIRequest):
 
         module_name = data.module.lower().strip()
-
         module = self.modules.get(module_name)
 
         if module is None:
@@ -26,7 +30,22 @@ class AIService:
                 detail=f"Unsupported intelligence module: {data.module}"
             )
 
-        response = module.process(data)
+        try:
+            response = module.process(data)
+
+        except HTTPException:
+            raise
+
+        except Exception:
+            logger.exception(
+                "AI provider request failed for module '%s'.",
+                module_name,
+           )
+ 
+            raise HTTPException(
+                status_code=503,
+                detail="AI service is temporarily unavailable. Please try again later."
+           )
 
         return {
             "module": module_name,
