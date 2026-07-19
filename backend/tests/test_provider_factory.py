@@ -5,6 +5,13 @@ from app.services.llm.groq_provider import GroqProvider
 from app.services.llm.provider_factory import ProviderFactory
 
 
+@pytest.fixture(autouse=True)
+def reset_provider_factory():
+    ProviderFactory._instance = None
+    yield
+    ProviderFactory._instance = None
+
+
 def test_provider_factory_returns_groq_provider(monkeypatch):
     monkeypatch.setattr(settings, "LLM_PROVIDER", "groq")
 

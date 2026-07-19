@@ -1,3 +1,5 @@
+import asyncio
+
 from app.agents.navigation import NavigationIntelligence
 from app.schemas.ai import AIRequest
 from app.services.llm.base_provider import BaseProvider
@@ -10,7 +12,7 @@ class FakeProvider(BaseProvider):
     def __init__(self):
         self.last_prompt = None
 
-    def generate(self, prompt: str) -> str:
+    async def generate(self, prompt: str) -> str:
         self.last_prompt = prompt
         return "Mock navigation guidance"
 
@@ -102,7 +104,7 @@ def test_navigation_intelligence_uses_verified_route():
         prompt="Guide me to Gate A.",
     )
 
-    response = intelligence.process(request)
+    response = asyncio.run(intelligence.process(request))
 
     assert response == "Mock navigation guidance"
     assert provider.last_prompt is not None
@@ -128,7 +130,7 @@ def test_navigation_intelligence_handles_missing_verified_route():
         prompt="Guide me to Gate A.",
     )
 
-    response = intelligence.process(request)
+    response = asyncio.run(intelligence.process(request))
 
     assert response == "Mock navigation guidance"
     assert provider.last_prompt is not None

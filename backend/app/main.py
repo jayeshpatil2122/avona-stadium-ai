@@ -22,8 +22,8 @@ app.add_middleware(
         "https://avona-stadium-ai.vercel.app",
     ],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type"],
 )
 
 @app.get("/")

@@ -1,4 +1,14 @@
+from typing import Literal, TypedDict
+
 from app.data.stadium_data import STADIUM_CROWD_DATA
+
+
+class CrowdAnalysis(TypedDict):
+    zone: str
+    occupancy: int
+    capacity: int
+    density_percentage: float
+    risk_level: Literal["Low", "Moderate", "High", "Critical"]
 
 
 class CrowdService:
@@ -7,7 +17,7 @@ class CrowdService:
     def analyze_zone(
         stadium: str,
         location: str | None,
-    ) -> dict | None:
+    ) -> CrowdAnalysis | None:
 
         if not location:
             return None

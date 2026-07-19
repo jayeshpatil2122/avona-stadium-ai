@@ -9,7 +9,7 @@ class NavigationIntelligence:
     def __init__(self, provider: BaseProvider):
         self.provider = provider
 
-    def process(self, data: AIRequest):
+    async def process(self, data: AIRequest) -> str:
 
         route = NavigationService.find_route(
             stadium=data.stadium,
@@ -48,4 +48,4 @@ If no verified route is available, clearly tell the user that exact navigation
 guidance is unavailable and recommend checking official venue signage or staff.
 """
 
-        return self.provider.generate(prompt)
+        return await self.provider.generate(prompt)

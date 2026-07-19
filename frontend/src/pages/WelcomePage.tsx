@@ -21,13 +21,18 @@ function WelcomePage({ onEnter }: WelcomePageProps) {
   );
 
   useEffect(() => {
-    setMounted(true);
+    const frame = requestAnimationFrame(() => {
+      setMounted(true);
+    });
 
     const t = window.setTimeout(() => {
       setCanContinue(true);
     }, 3600);
 
-    return () => window.clearTimeout(t);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.clearTimeout(t);
+    };
   }, []);
 
   return (
@@ -60,7 +65,7 @@ function WelcomePage({ onEnter }: WelcomePageProps) {
           >
             <img
               className="welcome-diamond__logo"
-              src="/Avona_StadiumAI_logo.png"
+              src="/Avona_StadiumAI_logo.webp"
               alt="Avona StadiumAI"
               draggable={false}
             />
@@ -100,7 +105,9 @@ function WelcomePage({ onEnter }: WelcomePageProps) {
         type="button"
         onClick={onEnter}
         aria-label="Skip animation"
-      />
+      >
+        Skip Intro
+      </button>
     </main>
   );
 }

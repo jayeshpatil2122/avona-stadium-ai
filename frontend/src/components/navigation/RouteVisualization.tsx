@@ -1,44 +1,17 @@
+import { VERIFIED_ROUTES } from "../../constants/stadium";
+
 interface RouteVisualizationProps {
   location: string;
   destination: string;
   hasResult: boolean;
 }
 
-const verifiedDemoRoutes: Record<string, string[]> = {
-  "Main Entrance__Gate A": [
-    "Main Entrance",
-    "Security Checkpoint",
-    "Central Plaza",
-    "North Concourse",
-    "Gate A",
-  ],
-  "Main Entrance__Gate B": [
-    "Main Entrance",
-    "Security Checkpoint",
-    "Central Plaza",
-    "East Concourse",
-    "Gate B",
-  ],
-  "Main Entrance__Medical Center": [
-    "Main Entrance",
-    "Security Checkpoint",
-    "Central Plaza",
-    "Medical Center",
-  ],
-  "Gate A__Medical Center": [
-    "Gate A",
-    "North Concourse",
-    "Central Plaza",
-    "Medical Center",
-  ],
-};
-
 function RouteVisualization({
   location,
   destination,
   hasResult,
 }: RouteVisualizationProps) {
-  const route = verifiedDemoRoutes[`${location}__${destination}`];
+  const route = VERIFIED_ROUTES[`${location}__${destination}`];
 
   return (
     <section className="panel route-visualization" aria-labelledby="route-map-title">

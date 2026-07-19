@@ -1,3 +1,5 @@
+import asyncio
+
 from app.agents.crowd import CrowdIntelligence
 from app.schemas.ai import AIRequest
 from app.services.crowd_service import CrowdService
@@ -53,7 +55,7 @@ def test_crowd_agent_uses_verified_crowd_data():
         prompt="Analyze the crowd situation."
     )
 
-    response = agent.process(request)
+    response = asyncio.run(agent.process(request))
 
     assert response == "Mock crowd operational recommendation"
 
@@ -81,7 +83,7 @@ def test_crowd_agent_handles_missing_crowd_data():
         prompt="Analyze the crowd situation."
     )
 
-    response = agent.process(request)
+    response = asyncio.run(agent.process(request))
 
     assert response == "Crowd data unavailable"
 

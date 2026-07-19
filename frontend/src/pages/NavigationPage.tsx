@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { generateAIResponse } from "../api/ai";
 import StatusBadge from "../components/common/StatusBadge";
-import AIResponsePanel from "../components/navigation/AIResponsePanel";
+import ResponsePanel from "../components/common/ResponsePanel";
 import RoutePlanner from "../components/navigation/RoutePlanner";
 import RouteVisualization from "../components/navigation/RouteVisualization";
+import { useAIRequest } from "../hooks/useAIRequest";
+import { STADIUM_NAME } from "../constants/stadium";
 import type { StadiumRole } from "../types/role";
 
 interface NavigationPageProps {
@@ -13,34 +14,23 @@ interface NavigationPageProps {
 function NavigationPage({ role }: NavigationPageProps) {
   const [location, setLocation] = useState("Main Entrance");
   const [destination, setDestination] = useState("Gate A");
-  const [result, setResult] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const { response, loading, error, execute } = useAIRequest();
+  const result = response?.response ?? "";
   const hasResponseState = loading || Boolean(error) || Boolean(result);
 
-  const handleNavigate = async () => {
-    setLoading(true);
-    setError("");
-    setResult("");
-
-    try {
-      const data = await generateAIResponse({
+  const handleNavigate = () => {
+    void execute(
+      {
         module: "navigation",
         user_role: role.value,
         language: "English",
-        stadium: "Demo World Cup Stadium",
+        stadium: STADIUM_NAME,
         location,
         destination,
         prompt: `Give me step-by-step directions from ${location} to ${destination}.`,
-      });
-
-      setResult(data.response);
-    } catch (err) {
-      console.error(err);
-      setError("Unable to generate navigation guidance. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+      },
+      "Unable to generate navigation guidance. Please try again.",
+    );
   };
 
   return (
@@ -70,7 +60,17 @@ function NavigationPage({ role }: NavigationPageProps) {
         />
 
         {hasResponseState && (
-          <AIResponsePanel result={result} loading={loading} error={error} />
+          <ResponsePanel
+            title="AI Navigation Guidance"
+            eyebrow="Groq LLM Output"
+            className="ai-response"
+            result={result}
+            loading={loading}
+            error={error}
+            loadingMessage="Analyzing verified stadium route data..."
+            langCode="en-US"
+            groundingSource="Grounded in: Bidirectional BFS Route Finder • Simulated Demo Data"
+          />
         )}
 
         {result && (
@@ -100,7 +100,7 @@ function NavigationPage({ role }: NavigationPageProps) {
               </div>
               <div>
                 <dt>Stadium</dt>
-                <dd>Demo World Cup Stadium</dd>
+                <dd>{STADIUM_NAME}</dd>
               </div>
               <div>
                 <dt>Module</dt>

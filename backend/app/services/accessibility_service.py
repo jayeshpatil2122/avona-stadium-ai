@@ -1,5 +1,18 @@
+from typing import TypedDict
+
 from app.data.stadium_data import STADIUM_ACCESSIBILITY_FACILITIES
 from app.services.navigation_service import NavigationService
+
+
+class AccessibilityAssistance(TypedDict):
+    assistance_type: str
+    facility_name: str
+    location: str
+    route: list[str]
+    wheelchair_accessible: bool
+    elevator_access: bool
+    assistance_point: str
+    description: str
 
 
 class AccessibilityService:
@@ -9,7 +22,7 @@ class AccessibilityService:
         stadium: str,
         location: str | None,
         assistance_type: str | None,
-    ) -> dict | None:
+    ) -> AccessibilityAssistance | None:
 
         if not location or not assistance_type:
             return None

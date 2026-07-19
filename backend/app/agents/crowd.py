@@ -9,7 +9,7 @@ class CrowdIntelligence:
     def __init__(self, provider: BaseProvider):
         self.provider = provider
 
-    def process(self, data: AIRequest) -> str:
+    async def process(self, data: AIRequest) -> str:
 
         crowd_data = CrowdService.analyze_zone(
             stadium=data.stadium,
@@ -53,4 +53,4 @@ If no verified crowd data is available, clearly state that crowd analysis
 cannot be performed for this zone.
 """
 
-        return self.provider.generate(prompt)
+        return await self.provider.generate(prompt)

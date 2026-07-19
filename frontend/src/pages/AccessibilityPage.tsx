@@ -1,6 +1,12 @@
 import { useMemo, useState } from "react";
-import { generateAIResponse } from "../api/ai";
 import StatusBadge from "../components/common/StatusBadge";
+import ResponsePanel from "../components/common/ResponsePanel";
+import { useAIRequest } from "../hooks/useAIRequest";
+import {
+  STADIUM_LOCATIONS,
+  STADIUM_NAME,
+  type StadiumLocation,
+} from "../constants/stadium";
 import type { StadiumRole } from "../types/role";
 
 interface AccessibilityPageProps {
@@ -68,27 +74,15 @@ const assistanceOptions: AssistanceOption[] = [
   },
 ];
 
-const stadiumLocations = [
-  "Main Entrance",
-  "Security Checkpoint",
-  "Central Plaza",
-  "North Concourse",
-  "East Concourse",
-  "Gate A",
-  "Gate B",
-  "Medical Center",
-];
-
 function AccessibilityPage({ role }: AccessibilityPageProps) {
   const [assistanceType, setAssistanceType] =
     useState<AssistanceType>("accessible_toilet");
-  const [location, setLocation] = useState("Main Entrance");
+  const [location, setLocation] = useState<StadiumLocation>("Main Entrance");
   const [request, setRequest] = useState(
     "I need to find an accessible toilet. Please help me.",
   );
-  const [guidance, setGuidance] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const { response, loading, error, execute, reset, setError } = useAIRequest();
+  const guidance = response?.response ?? "";
 
   const selectedOption = useMemo(
     () =>
@@ -105,42 +99,30 @@ function AccessibilityPage({ role }: AccessibilityPageProps) {
 
     setAssistanceType(value);
     setRequest(nextOption.prompt);
-    setGuidance("");
-    setError("");
+    reset();
   };
 
   const handleGenerateGuidance = async () => {
     const trimmedRequest = request.trim();
 
     if (!trimmedRequest) {
-      setGuidance("");
       setError("Enter an accessibility request before generating guidance.");
       return;
     }
 
-    setLoading(true);
-    setError("");
-    setGuidance("");
-
-    try {
-      const data = await generateAIResponse({
+    void execute(
+      {
         module: "accessibility",
         user_role: "fan",
         language: "English",
-        stadium: "Demo World Cup Stadium",
+        stadium: STADIUM_NAME,
         location,
         destination: null,
         assistance_type: assistanceType,
         prompt: trimmedRequest,
-      });
-
-      setGuidance(data.response);
-    } catch (err) {
-      console.error(err);
-      setError("Unable to generate accessibility guidance. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+      },
+      "Unable to generate accessibility guidance. Please try again.",
+    );
   };
 
   return (
@@ -207,12 +189,11 @@ function AccessibilityPage({ role }: AccessibilityPageProps) {
               <select
                 value={location}
                 onChange={(event) => {
-                  setLocation(event.target.value);
-                  setError("");
-                  setGuidance("");
+                  setLocation(event.target.value as StadiumLocation);
+                  reset();
                 }}
               >
-                {stadiumLocations.map((stadiumLocation) => (
+                {STADIUM_LOCATIONS.map((stadiumLocation) => (
                   <option value={stadiumLocation} key={stadiumLocation}>
                     {stadiumLocation}
                   </option>
@@ -280,31 +261,16 @@ function AccessibilityPage({ role }: AccessibilityPageProps) {
         </aside>
 
         {hasResponseState && (
-          <section className="panel accessibility-result" aria-labelledby="accessibility-result-title">
-            <div className="panel__header">
-              <div>
-                <p className="eyebrow">Real Backend Response</p>
-                <h2 id="accessibility-result-title">AI Accessibility Guidance</h2>
-              </div>
-            </div>
-
-            <div className="response-body" aria-live="polite" aria-busy={loading}>
-              {loading && (
-                <div className="loading-state">
-                  <span className="loader" aria-hidden="true" />
-                  <p>Checking verified demo accessibility data...</p>
-                </div>
-              )}
-
-              {error && (
-                <p className="error-state" role="alert">
-                  {error}
-                </p>
-              )}
-
-              {!loading && !error && guidance && <p className="ai-copy">{guidance}</p>}
-            </div>
-          </section>
+          <ResponsePanel
+            title="AI Accessibility Guidance"
+            className="accessibility-result"
+            result={guidance}
+            loading={loading}
+            error={error}
+            loadingMessage="Checking verified demo accessibility data..."
+            langCode="en-US"
+            groundingSource="Grounded in: Inclusive Needs Facility Lookup • Verified Demo Data"
+          />
         )}
 
         {hasResponseState && (

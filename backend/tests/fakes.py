@@ -8,7 +8,7 @@ class FakeProvider(BaseProvider):
         self.response = response
         self.last_prompt: str | None = None
 
-    def generate(self, prompt: str) -> str:
+    async def generate(self, prompt: str) -> str:
         self.last_prompt = prompt
         return self.response
 
@@ -16,5 +16,5 @@ class FakeProvider(BaseProvider):
 class FailingProvider(BaseProvider):
     """Fake LLM provider that simulates an external provider failure."""
 
-    def generate(self, prompt: str) -> str:
+    async def generate(self, prompt: str) -> str:
         raise RuntimeError("Simulated provider failure")

@@ -1,87 +1,51 @@
 import { useMemo, useState } from "react";
-import { generateAIResponse } from "../api/ai";
 import StatusBadge from "../components/common/StatusBadge";
+import ResponsePanel from "../components/common/ResponsePanel";
+import { useAIRequest } from "../hooks/useAIRequest";
+import { STADIUM_NAME } from "../constants/stadium";
+import { LANGUAGES, getLanguageConfig } from "../constants/languages";
 import type { StadiumRole } from "../types/role";
 
 interface MultilingualPageProps {
   role: StadiumRole;
 }
 
-const targetLanguages = [
-  "English",
-  "Hindi",
-  "Spanish",
-  "French",
-  "Portuguese",
-  "Arabic",
-];
-
 const quickMessages = [
   "Where is the nearest medical center?",
   "Please guide me to Gate A.",
   "I need accessible seating assistance.",
+  "Where is the nearest toilet?",
+  "How do I reach the exit?",
 ];
 
 function MultilingualPage({ role }: MultilingualPageProps) {
-  const [language, setLanguage] = useState("Hindi");
+  const [language, setLanguage] = useState("Spanish");
   const [message, setMessage] = useState("");
-  const [translation, setTranslation] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [copyLabel, setCopyLabel] = useState("Copy Translation");
+  const { response, loading, error, execute, reset } = useAIRequest();
+  const translation = response?.response ?? "";
 
-  const isArabic = language === "Arabic";
+  const langConfig = useMemo(() => getLanguageConfig(language), [language]);
   const trimmedMessage = message.trim();
   const hasResponseState = loading || Boolean(error) || Boolean(translation);
-
   const characterCount = useMemo(() => message.length, [message]);
 
-  const handleTranslate = async () => {
+  const handleTranslate = () => {
     if (!trimmedMessage) {
-      setError("Enter a message before requesting a translation.");
-      setTranslation("");
       return;
     }
 
-    setLoading(true);
-    setError("");
-    setTranslation("");
-    setCopyLabel("Copy Translation");
-
-    try {
-      const data = await generateAIResponse({
+    void execute(
+      {
         module: "multilingual",
         user_role: role.value,
         language,
-        stadium: "Demo World Cup Stadium",
-        location: "",
-        destination: "",
+        stadium: STADIUM_NAME,
+        location: null,
+        destination: null,
         prompt: trimmedMessage,
-      });
-
-      setTranslation(data.response);
-    } catch (err) {
-      console.error(err);
-      setError("Unable to translate this message. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleCopy = async () => {
-    if (!translation) {
-      return;
-    }
-
-    try {
-      await navigator.clipboard.writeText(translation);
-      setCopyLabel("Copied");
-      window.setTimeout(() => setCopyLabel("Copy Translation"), 1600);
-    } catch (err) {
-      console.error(err);
-      setCopyLabel("Copy unavailable");
-      window.setTimeout(() => setCopyLabel("Copy Translation"), 1600);
-    }
+      },
+      "Unable to translate this message. Please try again.",
+    );
   };
 
   return (
@@ -120,11 +84,14 @@ function MultilingualPage({ role }: MultilingualPageProps) {
               <span>Target Language</span>
               <select
                 value={language}
-                onChange={(event) => setLanguage(event.target.value)}
+                onChange={(event) => {
+                  setLanguage(event.target.value);
+                  reset();
+                }}
               >
-                {targetLanguages.map((targetLanguage) => (
-                  <option value={targetLanguage} key={targetLanguage}>
-                    {targetLanguage}
+                {LANGUAGES.map((lang) => (
+                  <option value={lang.name} key={lang.name}>
+                    {lang.name} ({lang.code})
                   </option>
                 ))}
               </select>
@@ -136,9 +103,7 @@ function MultilingualPage({ role }: MultilingualPageProps) {
                 value={message}
                 onChange={(event) => {
                   setMessage(event.target.value);
-                  if (error) {
-                    setError("");
-                  }
+                  reset();
                 }}
                 rows={7}
                 placeholder="Type a stadium message for translation..."
@@ -152,7 +117,10 @@ function MultilingualPage({ role }: MultilingualPageProps) {
                   className="quick-message"
                   type="button"
                   key={quickMessage}
-                  onClick={() => setMessage(quickMessage)}
+                  onClick={() => {
+                    setMessage(quickMessage);
+                    reset();
+                  }}
                 >
                   {quickMessage}
                 </button>
@@ -171,43 +139,17 @@ function MultilingualPage({ role }: MultilingualPageProps) {
         </section>
 
         {hasResponseState && (
-          <section className="panel translation-result" aria-labelledby="translation-result-title">
-            <div className="panel__header">
-              <div>
-                <p className="eyebrow">Real Backend Response</p>
-                <h2 id="translation-result-title">AI Translation Result</h2>
-              </div>
-              <button
-                className="switch-role-button"
-                type="button"
-                onClick={handleCopy}
-                disabled={!translation}
-              >
-                {copyLabel}
-              </button>
-            </div>
-
-            <div className="response-body" aria-live="polite" aria-busy={loading}>
-              {loading && (
-                <div className="loading-state">
-                  <span className="loader" aria-hidden="true" />
-                  <p>Translating message with stadium context...</p>
-                </div>
-              )}
-
-              {error && (
-                <p className="error-state" role="alert">
-                  {error}
-                </p>
-              )}
-
-              {!loading && !error && translation && (
-                <p className="ai-copy translation-copy" dir={isArabic ? "rtl" : "auto"}>
-                  {translation}
-                </p>
-              )}
-            </div>
-          </section>
+          <ResponsePanel
+            title="AI Translation Result"
+            className="translation-result"
+            result={translation}
+            loading={loading}
+            error={error}
+            loadingMessage="Translating message with stadium context..."
+            dir={langConfig.dir}
+            langCode={langConfig.code}
+            groundingSource="Grounded in: User Input Prompt • Groq Translation Context"
+          />
         )}
 
         {hasResponseState && (
@@ -224,12 +166,20 @@ function MultilingualPage({ role }: MultilingualPageProps) {
                 <dd>{role.label}</dd>
               </div>
               <div>
-                <dt>Language</dt>
+                <dt>Target Language</dt>
                 <dd>{language}</dd>
               </div>
               <div>
+                <dt>Direction</dt>
+                <dd style={{ textTransform: "uppercase" }}>{langConfig.dir}</dd>
+              </div>
+              <div>
+                <dt>Locale Code</dt>
+                <dd>{langConfig.code}</dd>
+              </div>
+              <div>
                 <dt>Stadium</dt>
-                <dd>Demo World Cup Stadium</dd>
+                <dd>{STADIUM_NAME}</dd>
               </div>
               <div>
                 <dt>Module</dt>

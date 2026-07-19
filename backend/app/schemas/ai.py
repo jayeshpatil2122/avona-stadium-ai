@@ -10,6 +10,7 @@ class AIRequest(BaseModel):
     location: str | None = Field(default=None, max_length=100)
     destination: str | None = Field(default=None, max_length=100)
     assistance_type: str | None = Field(default=None, max_length=100)
+    incident_type: str | None = Field(default=None, max_length=100)
 
     prompt: str = Field(..., min_length=2, max_length=1000)
 
@@ -34,6 +35,7 @@ class AIRequest(BaseModel):
         "location",
         "destination",
         "assistance_type",
+        "incident_type",
         mode="before",
     )
     @classmethod
@@ -45,3 +47,8 @@ class AIRequest(BaseModel):
                 return None
 
         return value
+
+
+class AIResponse(BaseModel):
+    module: str
+    response: str

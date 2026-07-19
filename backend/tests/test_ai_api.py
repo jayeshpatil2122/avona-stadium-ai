@@ -1,3 +1,5 @@
+import asyncio
+
 from fastapi.testclient import TestClient
 
 from app.agents.multilingual import MultilingualIntelligence
@@ -18,14 +20,14 @@ client = TestClient(app)
 class FakeProvider(BaseProvider):
     """Fake LLM provider used to avoid real Groq API calls during tests."""
 
-    def generate(self, prompt: str) -> str:
+    async def generate(self, prompt: str) -> str:
         return "Mock AI response"
 
 
 class FailingProvider(BaseProvider):
     """Simulates an external LLM provider failure."""
 
-    def generate(self, prompt: str) -> str:
+    async def generate(self, prompt: str) -> str:
         raise RuntimeError("Simulated provider failure")
 
 
@@ -315,6 +317,14 @@ def test_accessibility_api_with_fake_provider():
         app.dependency_overrides.clear()
 
 def test_accessibility_accepts_optional_assistance_type():
+    from app.agents.accessibility import AccessibilityIntelligence
+
+    fake_service = AIService()
+    fake_service.modules["accessibility"] = AccessibilityIntelligence(
+        FakeProvider()
+    )
+    app.dependency_overrides[get_ai_service] = lambda: fake_service
+
     response = client.post(
         "/api/ai/generate",
         json={
@@ -329,7 +339,8 @@ def test_accessibility_accepts_optional_assistance_type():
         },
     )
 
-    # The request schema should accept assistance_type.
-    # The provider may be mocked elsewhere in the test suite,
-    # so this test mainly verifies schema/API compatibility.
-    assert response.status_code != 422
+    try:
+        # The request schema should accept assistance_type without contacting Groq.
+        assert response.status_code == 200
+    finally:
+        app.dependency_overrides.clear()

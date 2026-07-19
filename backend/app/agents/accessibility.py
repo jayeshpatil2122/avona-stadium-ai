@@ -9,7 +9,7 @@ class AccessibilityIntelligence:
     def __init__(self, provider: BaseProvider):
         self.provider = provider
 
-    def process(self, data: AIRequest) -> str:
+    async def process(self, data: AIRequest) -> str:
 
         assistance_data = AccessibilityService.find_assistance(
             stadium=data.stadium,
@@ -68,4 +68,4 @@ guidance cannot be provided and recommend contacting authorized venue staff.
 Do not invent additional facilities or routes.
 """
 
-        return self.provider.generate(prompt)
+        return await self.provider.generate(prompt)

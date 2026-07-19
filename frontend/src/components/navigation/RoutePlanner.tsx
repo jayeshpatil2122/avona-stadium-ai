@@ -7,8 +7,10 @@ interface RoutePlannerProps {
   onSubmit: () => void;
 }
 
-const locationOptions = ["Main Entrance", "Gate A"];
-const destinationOptions = ["Gate A", "Gate B", "Medical Center"];
+import {
+  ROUTE_DESTINATIONS,
+  ROUTE_LOCATIONS,
+} from "../../constants/stadium";
 
 function RoutePlanner({
   location,
@@ -40,7 +42,7 @@ function RoutePlanner({
             value={location}
             onChange={(event) => onLocationChange(event.target.value)}
           >
-            {locationOptions.map((option) => (
+            {ROUTE_LOCATIONS.map((option) => (
               <option value={option} key={option}>
                 {option}
               </option>
@@ -54,7 +56,7 @@ function RoutePlanner({
             value={destination}
             onChange={(event) => onDestinationChange(event.target.value)}
           >
-            {destinationOptions.map((option) => (
+            {ROUTE_DESTINATIONS.map((option) => (
               <option value={option} key={option}>
                 {option}
               </option>

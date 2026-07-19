@@ -1,40 +1,20 @@
-import { useMemo, useState } from "react";
-import { generateAIResponse } from "../api/ai";
+import { useState } from "react";
 import StatusBadge from "../components/common/StatusBadge";
+import ResponsePanel from "../components/common/ResponsePanel";
+import { useAIRequest } from "../hooks/useAIRequest";
+import {
+  CROWD_ZONES,
+  STADIUM_NAME,
+  type CrowdZone,
+  type StadiumLocation,
+} from "../constants/stadium";
 import type { StadiumRole } from "../types/role";
 
 interface CrowdPageProps {
   role: StadiumRole;
 }
 
-type ZoneName =
-  | "Main Entrance"
-  | "Security Checkpoint"
-  | "Central Plaza"
-  | "North Concourse"
-  | "East Concourse"
-  | "Gate A"
-  | "Gate B"
-  | "Medical Center";
-
 type RiskLevel = "Low" | "Moderate" | "High" | "Critical";
-
-interface CrowdZone {
-  name: ZoneName;
-  occupancy: number;
-  capacity: number;
-}
-
-const crowdZones: CrowdZone[] = [
-  { name: "Main Entrance", occupancy: 850, capacity: 2000 },
-  { name: "Security Checkpoint", occupancy: 1200, capacity: 1500 },
-  { name: "Central Plaza", occupancy: 2400, capacity: 3000 },
-  { name: "North Concourse", occupancy: 1700, capacity: 2000 },
-  { name: "East Concourse", occupancy: 900, capacity: 2000 },
-  { name: "Gate A", occupancy: 750, capacity: 1000 },
-  { name: "Gate B", occupancy: 350, capacity: 1000 },
-  { name: "Medical Center", occupancy: 40, capacity: 150 },
-];
 
 function getRiskLevel(density: number): RiskLevel {
   if (density >= 85) {
@@ -53,42 +33,29 @@ function getRiskLevel(density: number): RiskLevel {
 }
 
 function CrowdPage({ role }: CrowdPageProps) {
-  const [selectedZone, setSelectedZone] = useState<ZoneName>("North Concourse");
-  const [recommendation, setRecommendation] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [selectedZone, setSelectedZone] = useState<StadiumLocation>("North Concourse");
+  const { response, loading, error, execute, reset } = useAIRequest();
+  const recommendation = response?.response ?? "";
 
-  const activeZone = useMemo(
-    () => crowdZones.find((zone) => zone.name === selectedZone) ?? crowdZones[0],
-    [selectedZone],
-  );
+  const activeZone: CrowdZone =
+    CROWD_ZONES.find((zone) => zone.name === selectedZone) ?? CROWD_ZONES[0];
   const density = Math.round((activeZone.occupancy / activeZone.capacity) * 100);
   const riskLevel = getRiskLevel(density);
   const hasResponseState = loading || Boolean(error) || Boolean(recommendation);
 
-  const handleAnalyzeCrowd = async () => {
-    setLoading(true);
-    setError("");
-    setRecommendation("");
-
-    try {
-      const data = await generateAIResponse({
+  const handleAnalyzeCrowd = () => {
+    void execute(
+      {
         module: "crowd",
         user_role: "operations",
         language: "English",
-        stadium: "Demo World Cup Stadium",
+        stadium: STADIUM_NAME,
         location: selectedZone,
         destination: null,
         prompt: "Analyze the current crowd situation and recommend operational actions.",
-      });
-
-      setRecommendation(data.response);
-    } catch (err) {
-      console.error(err);
-      setError("Unable to generate crowd recommendation. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+      },
+      "Unable to generate crowd recommendation. Please try again.",
+    );
   };
 
   return (
@@ -132,12 +99,11 @@ function CrowdPage({ role }: CrowdPageProps) {
               <select
                 value={selectedZone}
                 onChange={(event) => {
-                  setSelectedZone(event.target.value as ZoneName);
-                  setError("");
-                  setRecommendation("");
+                  setSelectedZone(event.target.value as StadiumLocation);
+                  reset();
                 }}
               >
-                {crowdZones.map((zone) => (
+                {CROWD_ZONES.map((zone) => (
                   <option value={zone.name} key={zone.name}>
                     {zone.name}
                   </option>
@@ -196,33 +162,16 @@ function CrowdPage({ role }: CrowdPageProps) {
         </section>
 
         {hasResponseState && (
-          <section className="panel crowd-recommendation" aria-labelledby="crowd-result-title">
-            <div className="panel__header">
-              <div>
-                <p className="eyebrow">Real Backend Response</p>
-                <h2 id="crowd-result-title">AI Operational Recommendation</h2>
-              </div>
-            </div>
-
-            <div className="response-body" aria-live="polite" aria-busy={loading}>
-              {loading && (
-                <div className="loading-state">
-                  <span className="loader" aria-hidden="true" />
-                  <p>Analyzing simulated crowd data with stadium context...</p>
-                </div>
-              )}
-
-              {error && (
-                <p className="error-state" role="alert">
-                  {error}
-                </p>
-              )}
-
-              {!loading && !error && recommendation && (
-                <p className="ai-copy">{recommendation}</p>
-              )}
-            </div>
-          </section>
+          <ResponsePanel
+            title="AI Operational Recommendation"
+            className="crowd-recommendation"
+            result={recommendation}
+            loading={loading}
+            error={error}
+            loadingMessage="Analyzing simulated crowd data with stadium context..."
+            langCode="en-US"
+            groundingSource="Grounded in: Zone Density & Capacity Limits • Simulated Demo Data"
+          />
         )}
 
         {hasResponseState && (
@@ -244,7 +193,7 @@ function CrowdPage({ role }: CrowdPageProps) {
               </div>
               <div>
                 <dt>Stadium</dt>
-                <dd>Demo World Cup Stadium</dd>
+                <dd>{STADIUM_NAME}</dd>
               </div>
               <div>
                 <dt>Module</dt>

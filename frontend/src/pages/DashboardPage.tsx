@@ -7,6 +7,7 @@ interface DashboardPageProps {
   role: StadiumRole;
   onOpenNavigation: () => void;
   onOpenCrowd: () => void;
+  onOpenOperations: () => void;
   onOpenAccessibility: () => void;
   onOpenMultilingual: () => void;
 }
@@ -28,7 +29,7 @@ const modules = [
     title: "Operations Intelligence",
     description: "Decision support for venue teams during match-day incidents.",
     icon: "OPS",
-    status: "Coming Soon" as const,
+    status: "Operational" as const,
   },
   {
     title: "Accessibility Intelligence",
@@ -48,6 +49,7 @@ function DashboardPage({
   role,
   onOpenNavigation,
   onOpenCrowd,
+  onOpenOperations,
   onOpenAccessibility,
   onOpenMultilingual,
 }: DashboardPageProps) {
@@ -58,6 +60,10 @@ function DashboardPage({
 
     if (title === "Crowd Intelligence") {
       return onOpenCrowd;
+    }
+
+    if (title === "Operations Intelligence") {
+      return onOpenOperations;
     }
 
     if (title === "Accessibility Intelligence") {
@@ -121,7 +127,7 @@ function DashboardPage({
         </div>
         <div className="metric-grid">
           <SystemMetric label="AI Provider" value="Groq" detail="Connected through FastAPI" />
-          <SystemMetric label="Active Modules" value="4" detail="Navigation, Crowd, Accessibility, and Multilingual" />
+          <SystemMetric label="Active Modules" value="5" detail="Navigation, Crowd, Operations, Accessibility, and Multilingual" />
           <SystemMetric label="Platform Status" value="Operational" detail="Frontend connected to API" />
           <SystemMetric label="Demo Data" value="Verified Routes + Simulated Crowds" detail="No fake live sensors or official FIFA data" />
         </div>

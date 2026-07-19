@@ -1,3 +1,5 @@
+import asyncio
+
 import pytest
 
 from app.services.llm.groq_provider import GroqProvider
@@ -18,4 +20,4 @@ def test_groq_provider_rejects_missing_api_key():
         RuntimeError,
         match="GROQ_API_KEY is not configured"
     ):
-        provider.generate("Test prompt")
+        asyncio.run(provider.generate("Test prompt"))

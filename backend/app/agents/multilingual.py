@@ -8,7 +8,7 @@ class MultilingualIntelligence:
     def __init__(self, provider: BaseProvider):
         self.provider = provider
 
-    def process(self, data: AIRequest):
+    async def process(self, data: AIRequest) -> str:
 
         prompt = f"""
 {MULTILINGUAL_SYSTEM_PROMPT}
@@ -27,4 +27,4 @@ MESSAGE TO TRANSLATE
 {data.prompt}
 """
 
-        return self.provider.generate(prompt)
+        return await self.provider.generate(prompt)

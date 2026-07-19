@@ -1,14 +1,21 @@
 from fastapi import HTTPException
 import logging
+from typing import Protocol
 
 from app.agents.multilingual import MultilingualIntelligence
 from app.agents.navigation import NavigationIntelligence
 from app.agents.crowd import CrowdIntelligence
 from app.agents.accessibility import AccessibilityIntelligence
-from app.schemas.ai import AIRequest
+from app.agents.operations import OperationsIntelligence
+from app.schemas.ai import AIRequest, AIResponse
 from app.services.llm.provider_factory import ProviderFactory
 
 logger = logging.getLogger(__name__)
+
+
+class IntelligenceModule(Protocol):
+    async def process(self, data: AIRequest) -> str:
+        ...
 
 
 class AIService:
@@ -16,14 +23,15 @@ class AIService:
     def __init__(self):
         self.provider = ProviderFactory.get_provider()
 
-        self.modules = {
+        self.modules: dict[str, IntelligenceModule] = {
             "navigation": NavigationIntelligence(self.provider),
             "multilingual": MultilingualIntelligence(self.provider),
             "crowd": CrowdIntelligence(self.provider),
             "accessibility": AccessibilityIntelligence(self.provider),
+            "operations": OperationsIntelligence(self.provider),
         }
 
-    def process(self, data: AIRequest):
+    async def process(self, data: AIRequest) -> AIResponse:
 
         module_name = data.module.lower().strip()
         module = self.modules.get(module_name)
@@ -35,7 +43,7 @@ class AIService:
             )
 
         try:
-            response = module.process(data)
+            response = await module.process(data)
 
         except HTTPException:
             raise
@@ -44,14 +52,11 @@ class AIService:
             logger.exception(
                 "AI provider request failed for module '%s'.",
                 module_name,
-           )
- 
+            )
+
             raise HTTPException(
                 status_code=503,
                 detail="AI service is temporarily unavailable. Please try again later."
-           )
+            )
 
-        return {
-            "module": module_name,
-            "response": response
-        }
+        return AIResponse(module=module_name, response=response)

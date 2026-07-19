@@ -1,15 +1,17 @@
-import { useMemo, useState } from "react";
+import { lazy, Suspense, useMemo, useState } from "react";
 import AppShell, { type AppView } from "./components/layout/AppShell";
 import RoleProvider from "./context/RoleProvider";
 import { useRole } from "./context/useRole";
-import AccessibilityPage from "./pages/AccessibilityPage";
-import CrowdPage from "./pages/CrowdPage";
 import DashboardPage from "./pages/DashboardPage";
-import MultilingualPage from "./pages/MultilingualPage";
-import NavigationPage from "./pages/NavigationPage";
 import RoleSelectionPage from "./pages/RoleSelectionPage";
 import WelcomePage from "./pages/WelcomePage";
 import "./styles/app.css";
+
+const NavigationPage = lazy(() => import("./pages/NavigationPage"));
+const CrowdPage = lazy(() => import("./pages/CrowdPage"));
+const OperationsPage = lazy(() => import("./pages/OperationsPage"));
+const AccessibilityPage = lazy(() => import("./pages/AccessibilityPage"));
+const MultilingualPage = lazy(() => import("./pages/MultilingualPage"));
 
 type OnboardingStep = "welcome" | "role" | "app";
 
@@ -39,6 +41,13 @@ function AppExperience() {
       return {
         title: "Crowd Intelligence",
         eyebrow: "AI-Assisted Crowd Operations",
+      };
+    }
+
+    if (activeView === "operations") {
+      return {
+        title: "Operations Intelligence",
+        eyebrow: "AI-Assisted Operational Decision Support",
       };
     }
 
@@ -79,23 +88,35 @@ function AppExperience() {
       onSwitchRole={handleSwitchRole}
       onGoWelcome={() => setOnboardingStep("welcome")}
     >
-      {activeView === "navigation" ? (
-        <NavigationPage role={role} />
-      ) : activeView === "crowd" ? (
-        <CrowdPage role={role} />
-      ) : activeView === "accessibility" ? (
-        <AccessibilityPage role={role} />
-      ) : activeView === "multilingual" ? (
-        <MultilingualPage role={role} />
-      ) : (
-        <DashboardPage
-          role={role}
-          onOpenNavigation={() => setActiveView("navigation")}
-          onOpenCrowd={() => setActiveView("crowd")}
-          onOpenAccessibility={() => setActiveView("accessibility")}
-          onOpenMultilingual={() => setActiveView("multilingual")}
-        />
-      )}
+      <Suspense
+        fallback={
+          <div className="loading-state page-loading" role="status" aria-live="polite">
+            <span className="loader" aria-hidden="true" />
+            <p>Loading stadium intelligence...</p>
+          </div>
+        }
+      >
+        {activeView === "navigation" ? (
+          <NavigationPage role={role} />
+        ) : activeView === "crowd" ? (
+          <CrowdPage role={role} />
+        ) : activeView === "operations" ? (
+          <OperationsPage role={role} />
+        ) : activeView === "accessibility" ? (
+          <AccessibilityPage role={role} />
+        ) : activeView === "multilingual" ? (
+          <MultilingualPage role={role} />
+        ) : (
+          <DashboardPage
+            role={role}
+            onOpenNavigation={() => setActiveView("navigation")}
+            onOpenCrowd={() => setActiveView("crowd")}
+            onOpenOperations={() => setActiveView("operations")}
+            onOpenAccessibility={() => setActiveView("accessibility")}
+            onOpenMultilingual={() => setActiveView("multilingual")}
+          />
+        )}
+      </Suspense>
     </AppShell>
   );
 }
